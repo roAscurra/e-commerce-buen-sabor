@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import ArticuloManufacturadoService from "../../../services/ArticuloManufacturadoService";
 import ItemProducto from "../ItemProducto/ItemProducto";
 import ArticuloDto from "../../../types/dto/ArticuloDto";
-import { CarritoContextProvider} from "../../../context/CarritoContext";
-import { Carrito } from "../../ui/carrito/Carrito";
 import ArticuloInsumoService from "../../../services/ArticuloInsumoService";
 import Categoria from "../../../types/Categoria";
 import "./Producto.css";
@@ -26,40 +24,6 @@ const Producto = () => {
     IArticuloManufacturado[]
   >([]);
   const categoriaService = new CategoriaService();
-
-  const estaEnHorarioDeAtencion = (date: Date) => {
-    const diaSemana = date.getDay();
-    const horas = date.getHours();
-    const minutos = date.getMinutes();
-
-    const estaDentroRango = (
-      horaInicio: any,
-      minInicio: any,
-      horaFin: any,
-      minFin: any
-    ) => {
-      const tiempoActual = horas * 60 + minutos;
-      const tiempoInicio = horaInicio * 60 + minInicio;
-      const tiempoFin = horaFin * 60 + minFin;
-
-      if (tiempoInicio < tiempoFin) {
-        return tiempoActual >= tiempoInicio && tiempoActual < tiempoFin;
-      } else {
-        return tiempoActual >= tiempoInicio || tiempoActual < tiempoFin;
-      }
-    };
-
-    const horarioLunesADomingo = estaDentroRango(8, 0, 0, 0);
-    const horarioSabadoDomingo = estaDentroRango(11, 0, 15, 0);
-
-    const esFinDeSemana = diaSemana === 6 || diaSemana === 0;
-
-    if (esFinDeSemana) {
-      return horarioLunesADomingo || horarioSabadoDomingo;
-    } else {
-      return horarioLunesADomingo;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,28 +87,6 @@ const Producto = () => {
       </div>
     ));
   }
-
-  if (!estaEnHorarioDeAtencion(new Date())) {
-    return (
-      <>
-        <BaseNavBar />
-        <div
-          style={{ height: "calc(100vh - 56px)" }}
-          className={
-            "d-flex p-5 text-center flex-column justify-content-center align-items-center w-100"
-          }
-        >
-          <div className={"h1"}>
-            <b>El local se encuentra cerrado en este momento</b>
-          </div>
-          <div>
-            Horario: Lunes a domingos de 20:00 a 12:00, y de sábados y domingos
-            de 11:00 a 15:00.
-          </div>
-        </div>
-      </>
-    );
-  }
   if (productos.length === 0) {
     return (
       <>
@@ -167,7 +109,6 @@ const Producto = () => {
       <BaseNavBar />
       <div className="container-fluid producto-container">
         <div className="row">
-          <CarritoContextProvider>
             <div className="col-md-9">
               <select
                 className="w-100 form-control custom-select mt-3"
@@ -200,15 +141,6 @@ const Producto = () => {
                 ))}
               </div>
             </div>
-            <div className="col-md-3 mt-3">
-              <div className="card carrito-card">
-                <Carrito
-                  // insumos={articuloInsumo}
-                  // productos={articuloManufacturado}
-                ></Carrito>
-              </div>
-            </div>
-          </CarritoContextProvider>
         </div>
       </div>
     </>

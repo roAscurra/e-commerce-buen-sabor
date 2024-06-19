@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 
 const images = [
