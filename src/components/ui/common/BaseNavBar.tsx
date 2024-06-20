@@ -28,6 +28,15 @@ export const BaseNavBar = () => {
                 Productos
               </a>
             </li>
+            <li className="nav-item">
+              <a
+                className="nav-link active text-white"
+                aria-current="page"
+                href="/promociones/1"
+                >
+                Promociones
+              </a>
+            </li>
           </ul>
         </div>
       </div>
