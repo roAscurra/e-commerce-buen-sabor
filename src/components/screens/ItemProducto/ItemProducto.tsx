@@ -27,15 +27,16 @@ const ItemProducto = (args: ProductoParams) => {
 
   return (
     <div className="card tarjeta">
-      {args.productoObject.imagenes.length > 0 && (
+      {args.productoObject.imagenes && args.productoObject.imagenes.length > 0 && (
         <img src={args.productoObject.imagenes[0].url} className="card-img-top" alt={args.denominacion} />
       )}
+
       <div className="card-body altura-cuerpo">
         <h5 className="card-title text-truncate">{args.denominacion}</h5>
         <div className="precio-container">
           <p className="card-text h2">$ {args.precioVenta}</p>
         </div>
-      
+
         {args.productoObject.tiempoEstimadoMinutos > 0 && (
           <>
             <p className="card-text">Tiempo de preparación: {args.productoObject.tiempoEstimadoMinutos} minutos</p>
@@ -50,8 +51,8 @@ const ItemProducto = (args: ProductoParams) => {
             <ul>
               {ingredientes.map((ingrediente, index) => (
                 <li key={index}>
-                {ingrediente.articuloInsumo.denominacion} - {ingrediente.cantidad} {ingrediente.articuloInsumo.unidadMedida.denominacion === "Cantidades" ? "Unidades" : ingrediente.articuloInsumo.unidadMedida.denominacion}
-              </li>
+                  {ingrediente.articuloInsumo.denominacion} - {ingrediente.cantidad} {ingrediente.articuloInsumo.unidadMedida.denominacion === "Cantidades" ? "Unidades" : ingrediente.articuloInsumo.unidadMedida.denominacion}
+                </li>
               ))}
             </ul>
           </DialogContent>
