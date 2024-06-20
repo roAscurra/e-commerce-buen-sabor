@@ -1,19 +1,23 @@
-export const BaseNavBar = () => {
+import React from 'react';
+import './BaseNavBar.css'; // Importa tu archivo CSS personalizado
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faTags } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos que necesites
 
+export const BaseNavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-light navbar-custom">
       <div className="container-fluid ms-3">
         <a className="navbar-brand text-white" href="/inicio/1">
           Buen Sabor
         </a>
         <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -24,7 +28,8 @@ export const BaseNavBar = () => {
                 className="nav-link active text-white"
                 aria-current="page"
                 href="/carrito/1"
-                >
+              >
+                <FontAwesomeIcon icon={faShoppingCart} className="icon" /> {/* Icono para 'Productos' */}
                 Productos
               </a>
             </li>
@@ -33,7 +38,8 @@ export const BaseNavBar = () => {
                 className="nav-link active text-white"
                 aria-current="page"
                 href="/promociones/1"
-                >
+              >
+                <FontAwesomeIcon icon={faTags} className="icon" /> {/* Icono para 'Promociones' */}
                 Promociones
               </a>
             </li>

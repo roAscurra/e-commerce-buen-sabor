@@ -1,0 +1,13 @@
+
+.navbar-custom {
+    background-color: #26486e;
+}
+/* Cambiar tipo de letra */
+.navbar-custom .navbar-brand {
+    font-family: 'Arial', sans-serif; /* Cambia 'Arial' por la fuente que prefieras */
+}
+
+/* Estilo de los íconos */
+.navbar-custom .nav-link .icon {
+    margin-right: 5px; /* Ajusta el espaciado entre el icono y el texto */
+}
