@@ -17,18 +17,19 @@ const Producto = () => {
   const url = import.meta.env.VITE_API_URL;
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [filteredProducts, setFilteredProducts] = useState<ArticuloDto[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (sucursalId) {
         const sucursalIdNumber = parseInt(sucursalId); // Convertir sucursalId a número si es una cadena
-  
+
         const productData = await articuloService.getAll(
           url + 'ecommerce'
         );
-        
+
         setProductos(productData); // Actualizar el estado productos con los datos obtenidos
-  
+
         const categories = await categoriaService.categoriaSucursal(url, sucursalIdNumber);
         setCategorias(categories);
         console.log(productos);
@@ -42,9 +43,26 @@ const Producto = () => {
     setSelectedCategory(selectedValue ? parseInt(selectedValue) : null);
   };
 
-  const filteredProducts = selectedCategory
-    ? productos.filter((producto) => producto.categoria.id === selectedCategory)
-    : productos;
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (selectedCategory !== null) {
+        const page = 0; // Inicio en la primera página
+        const size = 10; // Tamaño de página
+        const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
+    
+        // Concatenar todos los elementos de todas las páginas en un único array
+        const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
+    
+        setFilteredProducts(allProducts);
+        console.log(allProducts);
+      } else {
+        setFilteredProducts(productos);
+      }
+    };
+
+    fetchFilteredProducts();
+  }, [selectedCategory]);
+
 
   if (productos.length === 0) {
     return (
