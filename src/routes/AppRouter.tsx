@@ -9,6 +9,7 @@ import Promociones from '../components/screens/Promociones/Promociones.tsx';
 
 const AppRouter = () => {
   return (
+    
     <Routes>
       <Route path="/" element={<Inicio />} />
       <Route path="/inicio/:sucursalId" element={<Inicio />} />
