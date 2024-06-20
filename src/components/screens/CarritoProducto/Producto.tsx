@@ -108,8 +108,6 @@ const Producto = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid producto-container">
-        <div className="row">
-            <div className="col-md-9">
               <select
                 className="w-100 form-control custom-select mt-3"
                 onChange={handleCategoryFilter}
@@ -141,8 +139,6 @@ const Producto = () => {
                 ))}
               </div>
             </div>
-        </div>
-      </div>
     </>
   );
 };
