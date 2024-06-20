@@ -14,6 +14,9 @@ const PromocionModal: React.FC<PromocionModalProps> = ({ show, handleClose, prom
   const fechaDesde = new Date(promocion.fechaDesde);
   const fechaHasta = new Date(promocion.fechaHasta);
 
+  // Imprime promocionDetalle en la consola para verificar su contenido
+  console.log('PromocionDetalle:', promocion.promocionDetalle);
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -39,8 +42,7 @@ const PromocionModal: React.FC<PromocionModalProps> = ({ show, handleClose, prom
               {promocion.promocionDetalle.map(detalle => (
                 <li key={detalle.id}>
                   <p>Cantidad: {detalle.cantidad}</p>
-                  <p>Artículo Manufacturado: {detalle.articuloManufacturado.denominacion}</p>
-                  {/* Ajusta según la estructura de ArticuloManufacturadoShorDto */}
+                  <p>Artículo: {detalle.articulo.denominacion}</p>
                 </li>
               ))}
             </ul>
