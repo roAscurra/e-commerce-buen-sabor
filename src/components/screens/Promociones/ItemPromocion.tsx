@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 import Promocion from "../../../types/Promocion";
 import PromocionModal from '../../ui/Modal/PromocionModal';
+import './ItemPromocion.css'; // Archivo CSS para estilos personalizados
 
 interface ItemPromocionProps {
   id: number;
@@ -30,7 +33,8 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
   };
 
   return (
-    <div className="card">
+    
+    <div className="card custom-card">
       {imagenes.length > 0 && (
         <img src={imagenes[0]} className="card-img-top" alt={denominacion} />
       )}
@@ -39,7 +43,7 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
         <p className="card-text">{descripcion}</p>
         <p className="card-text"><strong>${precioPromocional}</strong></p>
         <button className="btn btn-primary" onClick={handleViewDetail}>
-          Ver detalle
+          <FontAwesomeIcon icon={faEye} /> Ver detalle
         </button>
       </div>
 
