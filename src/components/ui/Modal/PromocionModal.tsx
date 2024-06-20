@@ -31,8 +31,10 @@ const PromocionModal: React.FC<PromocionModalProps> = ({
 
   return (
     <Modal show={show} onHide={handleClose} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>{promocion.denominacion}</Modal.Title>
+      <Modal.Header closeButton className="justify-content-center">
+        <Modal.Title style={{ color: "#5d8ec7", textAlign: "center", width: "100%" }}>
+          {promocion.denominacion}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {promocion.promocionDetalle.length > 0 && (
@@ -108,4 +110,5 @@ const PromocionModal: React.FC<PromocionModalProps> = ({
     </Modal>
   );
 };
+
 export default PromocionModal;
