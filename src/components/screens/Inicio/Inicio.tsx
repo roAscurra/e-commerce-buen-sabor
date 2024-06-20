@@ -1,63 +1,54 @@
-import { useState } from 'react';
-import {BaseNavBar} from "../../ui/common/BaseNavBar.tsx";
-
-const images = [
-  'img1.jpg',
-  'img2.jpeg',
-  'img3.jpg',
-  'img4.jpg'
-];
+import './Inicio.css'; // Archivo CSS para estilos personalizados
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUtensils, faTags, faArrowRight } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos específicos que necesitas
 
 export const Inicio = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-  };
-
   return (
     <>
-      <BaseNavBar />
-      <div>
-        <h1 className='text-center m-3'>El Buen Sabor</h1>
-        <div id="carouselExample" className="carousel slide">
-          <div className="carousel-inner">
-            {images.map((image, index) => (
-              <div className={`carousel-item ${index === currentImageIndex ? 'active' : ''}`} key={index}>
-                <img src={`../../public/images/ui/${image}`} className="d-block w-100 img-fluid" alt={`Slide ${index + 1}`} style={{ objectFit: 'cover', maxHeight: '500px' }} />
-              </div>
-            ))}
+      <div className="inicio-container">
+        <div className="contenido">
+          <div className="texto">
+            <h1 className='texto-principal'>El Buen Sabor</h1>
           </div>
-          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" onClick={prevImage}>
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" onClick={nextImage}>
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
-        <div className='col-md-12'>
-          <p className='text-center h5 m-3 mb-5'>
-            Restaurante El Buen Sabor
-          </p>
-          <p className='text-center m-3 mb-5'>
-            Ubicado en el corazón de la ciudad, El Buen Sabor es el destino perfecto para los amantes de la gastronomía que buscan una experiencia culinaria auténtica y memorable. Con una decoración acogedora y moderna, nuestro restaurante ofrece un ambiente cálido y familiar donde cada detalle ha sido cuidadosamente pensado para brindarte el máximo confort.
-          </p>
-          <p className='text-center m-3 mb-5'>
-            <strong>Nuestra Cocina</strong>
-          </p>
-          <p className='text-center m-3 mb-5'>
-            En El Buen Sabor, nos especializamos en una fusión de cocina tradicional y contemporánea, utilizando ingredientes frescos y de la más alta calidad. Nuestro menú, diseñado por chefs expertos, incluye una variedad de platos que van desde suculentos asados y mariscos frescos hasta opciones vegetarianas innovadoras y saludables.
-          </p>
+          <div className="tarjetas-container">
+            <div className="tarjeta">
+              <div className="icono">
+                <FontAwesomeIcon icon={faUtensils} size="3x" />
+              </div>
+              <div className="contenido-tarjeta">
+                <h3>Productos</h3>
+                <p>Descubre nuestra variedad de productos</p>
+                <a className='Boton' href="/carrito/1">
+                  Ver productos aquí
+                </a>
+              </div>
+            </div>
+            <div className="tarjeta">
+              <div className="icono">
+                <FontAwesomeIcon icon={faTags} size="3x" />
+              </div>
+              <div className="contenido-tarjeta">
+                <h3>Promociones</h3>
+                <p>Conoce nuestras promociones especiales</p>
+                <a className='Boton' href="/promociones/1">
+                  Ver promociones aquí
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="texto">
+            <p className='text-center m-3'>
+              El Buen Sabor es un restaurante ubicado en el corazón de la ciudad, conocido por su gastronomía auténtica y ambiente acogedor.
+            </p>
+            <p className='text-center m-3'>
+              Especializados en una fusión de cocina tradicional y contemporánea, ofrecemos platos que van desde asados y mariscos frescos hasta opciones vegetarianas saludables.
+            </p>
+          </div>
         </div>
         <hr />
       </div>
     </>
   );
 };
+
 export default Inicio;
