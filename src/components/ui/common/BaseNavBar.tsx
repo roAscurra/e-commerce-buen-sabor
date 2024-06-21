@@ -1,4 +1,3 @@
-import React from 'react';
 import './BaseNavBar.css'; // Importa tu archivo CSS personalizado
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTags } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos que necesites
