@@ -102,7 +102,7 @@ const Producto = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid producto-container">
-        <div className="d-flex align-items-center mt-3 mb-3">
+        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
           <select
             className="form-control custom-select filtro-categoria"
             onChange={handleCategoryFilter}
@@ -124,7 +124,7 @@ const Producto = () => {
         </div>
         <div className="row">
           {productos.map((producto, index) => (
-            <div className="col-sm-4 mb-3" key={index}>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
                   id={producto.id}
@@ -139,6 +139,7 @@ const Producto = () => {
       </div>
     </>
   );
+  
 };
 
 export default Producto;

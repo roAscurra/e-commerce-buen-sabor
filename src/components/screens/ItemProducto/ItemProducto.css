@@ -1,3 +1,102 @@
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.altura-cuerpo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.precio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.card-text.h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+button {
+  align-self: center;
+  margin-top: 10px;
+}
+
+.btn-ingredientes {
+  height: 40px;
+  background-color: #26486e !important;
+  border-color: #26486e !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.btn-ingredientes:hover {
+  background-color: #132f4f !important;
+  border-color: #132f4f !important;
+  color: white !important;
+}
+
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .precio-container {
+    flex-direction: column;
+  }
+
+  .card-text.h2 {
+    font-size: 1.2rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .card-text.h2 {
+    font-size: 1rem;
+  }
+}
+
+
 .icon-container {
   display: flex;
   justify-content: center;

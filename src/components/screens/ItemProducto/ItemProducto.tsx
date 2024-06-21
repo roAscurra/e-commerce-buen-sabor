@@ -1,8 +1,9 @@
 import './ItemProducto.css';
 import ArticuloDto from '../../../types/dto/ArticuloDto';
 import { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Button } from "@mui/material";
 import ArticuloManufacturadoDetalle from "../../../types/ArticuloManufacturadoDetalle";
+import IngredientesModal from '../../ui/Modal/ModalIngredientes';
 
 type ProductoParams = {
   id: number;
@@ -40,28 +41,17 @@ const ItemProducto = (args: ProductoParams) => {
         {args.productoObject.tiempoEstimadoMinutos > 0 && (
           <>
             <p className="card-text">Tiempo de preparación: {args.productoObject.tiempoEstimadoMinutos} minutos</p>
-            <Button variant="contained" color="primary" onClick={handleVerIngredientes}>
+            <Button variant="contained" className='btn-ingredientes' onClick={handleVerIngredientes}>
               Ver Ingredientes
             </Button>
           </>
         )}
-        <Dialog open={showModal} onClose={handleCloseModal}>
-          <DialogTitle>Ingredientes</DialogTitle>
-          <DialogContent>
-            <ul>
-              {ingredientes.map((ingrediente, index) => (
-                <li key={index}>
-                  {ingrediente.articuloInsumo.denominacion} - {ingrediente.cantidad} {ingrediente.articuloInsumo.unidadMedida.denominacion === "Cantidades" ? "Unidades" : ingrediente.articuloInsumo.unidadMedida.denominacion}
-                </li>
-              ))}
-            </ul>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseModal} color="primary">
-              Cerrar
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <IngredientesModal 
+        open={showModal}
+        onClose={handleCloseModal}
+        ingredientes={ingredientes}
+        product={args.productoObject}
+        />
       </div>
     </div>
   );
