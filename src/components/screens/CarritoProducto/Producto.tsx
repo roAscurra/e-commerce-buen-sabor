@@ -8,12 +8,15 @@ import { useParams } from "react-router-dom";
 import CategoriaService from "../../../services/CategoriaService";
 import ArticuloDtoService from "../../../services/ArticuloDtoService";
 import { Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
 
 const categoriaService = new CategoriaService();
 const articuloService = new ArticuloDtoService();
 
 const Producto = () => {
   const [productos, setProductos] = useState<ArticuloDto[]>([]);
+  const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
   const { sucursalId } = useParams();
   const url = import.meta.env.VITE_API_URL;
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -24,11 +27,9 @@ const Producto = () => {
       if (sucursalId) {
         const sucursalIdNumber = parseInt(sucursalId);
 
-        const productData = await articuloService.getAll(
-          url + 'ecommerce'
-        );
-
+        const productData = await articuloService.getAll(url + 'ecommerce');
         setProductos(productData);
+        setTodosLosProductos(productData);  // Guardamos todos los productos aquí
 
         const categories = await categoriaService.categoriaSucursal(url, sucursalIdNumber);
         setCategorias(categories);
@@ -44,8 +45,8 @@ const Producto = () => {
   };
 
   const fetchProductSort = async () => {
-    const page = 0; 
-    const size = 10; 
+    const page = 0;
+    const size = 10;
     const productSorted = await articuloService.getArticulosSortedByPrecio(url + 'ecommerce', page, size);
 
     const allSorted = productSorted.content.reduce((acc, page) => acc.concat(page), []);
@@ -60,22 +61,25 @@ const Producto = () => {
   useEffect(() => {
     const fetchFilteredProducts = async () => {
       if (selectedCategory !== null) {
-        const page = 0; 
+        const page = 0;
         const size = 10;
         const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
 
         const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
 
-        setProductos(allProducts);
+        if (allProducts.length === 0) {
+          setProductos(todosLosProductos);  // Si no hay productos en la categoría, mostramos todos los productos
+        } else {
+          setProductos(allProducts);
+        }
         console.log(allProducts);
       } else {
-        setProductos(productos);
+        setProductos(todosLosProductos);  // Si la categoría es "Todas las categorías", mostramos todos los productos
       }
     };
 
     fetchFilteredProducts();
-  }, [selectedCategory]);
-
+  }, [selectedCategory, todosLosProductos]);
 
   if (productos.length === 0) {
     return (
@@ -98,25 +102,28 @@ const Producto = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid producto-container">
-        <Button
-          className="btn btn-primary mt-3"
-          onClick={handleSortByPrice}
-        >
-          Ordenar por menor precio
-        </Button>
-        <select
-          className="w-100 form-control custom-select mt-3"
-          onChange={handleCategoryFilter}
-        >
-          <option value="">Todas las categorías</option>
-          {categorias.map((categoria) => (
-            <option key={categoria.id} value={categoria.id}>
-              {categoria.denominacion}
-            </option>
-          ))}
-        </select>
+        <div className="d-flex align-items-center mt-3 mb-3">
+          <select
+            className="form-control custom-select filtro-categoria"
+            onChange={handleCategoryFilter}
+          >
+            <option value="">Todas las categorías</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.id} value={categoria.id}>
+                {categoria.denominacion}
+              </option>
+            ))}
+          </select>
+          <Button
+            className="ordenar-btn ms-3"
+            onClick={handleSortByPrice}
+          >
+            <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
+            Ordenar por menor precio
+          </Button>
+        </div>
         <div className="row">
-          {productos.map((producto: ArticuloDto, index) => (
+          {productos.map((producto, index) => (
             <div className="col-sm-4 mb-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
