@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PromocionService from "../../../services/PromocionService";
 import ItemPromocion from "./ItemPromocion";
 import Promocion from "../../../types/Promocion";
@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [promocionesPerPage] = useState(3); // Número de tarjetas por página
   const promocionService = new PromocionService();
   const { sucursalId } = useParams();
   const url = import.meta.env.VITE_API_URL;
@@ -26,6 +28,15 @@ const Promociones = () => {
     fetchData();
   }, [sucursalId]);
 
+  // Calcula el índice del último elemento de la página actual
+  const indexOfLastPromocion = currentPage * promocionesPerPage;
+  // Calcula el índice del primer elemento de la página actual
+  const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
+  // Obtiene las promociones de la página actual
+  const currentPromociones = promociones.slice(indexOfFirstPromocion, indexOfLastPromocion);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   if (promociones.length === 0) {
     return (
       <>
@@ -42,12 +53,13 @@ const Promociones = () => {
       </>
     );
   }
+
   return (
     <>
       <BaseNavBar />
       <div className="container-fluid promocion-container">
         <div className="row">
-          {promociones.map((promocion: Promocion, index) => (
+          {currentPromociones.map((promocion: Promocion, index) => (
             <div className="col-sm-4 mb-3" key={index}>
               <div className="promocion-card">
                 <ItemPromocion
@@ -63,6 +75,19 @@ const Promociones = () => {
           ))}
         </div>
       </div>
+
+      {/* Paginación */}
+      <nav>
+        <ul className="pagination justify-content-center">
+          {[...Array(Math.ceil(promociones.length / promocionesPerPage))].map((_, index) => (
+            <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+              <button onClick={() => paginate(index + 1)} className="page-link">
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </>
   );
 };
