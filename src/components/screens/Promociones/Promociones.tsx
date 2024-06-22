@@ -9,6 +9,7 @@ const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [promocionesPerPage] = useState(3); // Número de tarjetas por página
+  const [searchTerm, setSearchTerm] = useState("");
   const promocionService = new PromocionService();
   const { sucursalId } = useParams();
   const url = import.meta.env.VITE_API_URL;
@@ -28,14 +29,23 @@ const Promociones = () => {
     fetchData();
   }, [sucursalId]);
 
-  // Calcula el índice del último elemento de la página actual
   const indexOfLastPromocion = currentPage * promocionesPerPage;
-  // Calcula el índice del primer elemento de la página actual
   const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
-  // Obtiene las promociones de la página actual
-  const currentPromociones = promociones.slice(indexOfFirstPromocion, indexOfLastPromocion);
+  
+  // Filtrar promociones según el término de búsqueda
+  const filteredPromociones = promociones.filter((promocion) =>
+    promocion.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const currentPromociones = filteredPromociones.slice(indexOfFirstPromocion, indexOfLastPromocion);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Resetear a la primera página al buscar
+  };
+  
 
   if (promociones.length === 0) {
     return (
@@ -58,6 +68,13 @@ const Promociones = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid promocion-container">
+        <input
+          type="text"
+          placeholder="Buscar promoción..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="form-control mb-3"
+        />
         <div className="row">
           {currentPromociones.map((promocion: Promocion, index) => (
             <div className="col-sm-4 mb-3" key={index}>
@@ -75,11 +92,9 @@ const Promociones = () => {
           ))}
         </div>
       </div>
-
-      {/* Paginación */}
       <nav>
         <ul className="pagination justify-content-center">
-          {[...Array(Math.ceil(promociones.length / promocionesPerPage))].map((_, index) => (
+          {[...Array(Math.ceil(filteredPromociones.length / promocionesPerPage))].map((_, index) => (
             <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
               <button onClick={() => paginate(index + 1)} className="page-link">
                 {index + 1}
