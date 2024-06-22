@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import ArticuloManufacturadoDetalle from "../../../types/ArticuloManufacturadoDetalle";
 import IngredientesModal from '../../ui/Modal/ModalIngredientes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 type ProductoParams = {
   id: number;
@@ -41,9 +43,10 @@ const ItemProducto = (args: ProductoParams) => {
         {args.productoObject.tiempoEstimadoMinutos > 0 && (
           <>
             <p className="card-text">Tiempo de preparación: {args.productoObject.tiempoEstimadoMinutos} minutos</p>
-            <Button variant="contained" className='btn-ingredientes' onClick={handleVerIngredientes}>
-              Ver Ingredientes
-            </Button>
+            <button className='btn-ingredientes'  onClick={handleVerIngredientes}>
+          <FontAwesomeIcon icon={faEye} />  Ver detalle
+        </button>
+
           </>
         )}
         <IngredientesModal 

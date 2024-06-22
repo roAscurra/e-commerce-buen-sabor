@@ -1,0 +1,33 @@
+.modal-title {
+    font-size: 24px; /* Tamaño de letra personalizado */
+    color: #7180c0; /* Color del texto */
+    text-decoration: underline; /* Subraya el texto */
+}
+
+.modal-description {
+    font-size: 10px; /* Tamaño de letra personalizado */
+    color: #7282a3; /* Color del texto */
+}
+
+.modal-list-item {
+    font-size: 15px; /* Tamaño de letra personalizado */
+    color: #485364; /* Color del texto */
+    font-weight: bold; /* Negrita */
+    margin-top: 4px; /* Espaciado superior */
+}
+
+.modal-button {
+    font-size: 14px; /* Tamaño de letra personalizado */
+    background-color: #60a0e6;
+    border-color: #60a0e6;
+    color: white; /* Color del texto */
+    padding: 8px 16px; /* Relleno del botón */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.modal-button:hover {
+    background-color: #4076af;
+    border-color: #4076af;
+}
