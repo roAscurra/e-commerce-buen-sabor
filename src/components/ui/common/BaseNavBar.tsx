@@ -6,7 +6,7 @@ export const BaseNavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light navbar-custom">
       <div className="container-fluid ms-3">
-        <a className="navbar-brand text-white" href="/inicio/1">
+        <a className="navbar-brand text-white" href="/inicio">
           Buen Sabor
         </a>
         <button
@@ -26,7 +26,7 @@ export const BaseNavBar = () => {
               <a
                 className="nav-link active text-white"
                 aria-current="page"
-                href="/carrito/1"
+                href="/carrito"
               >
                 <FontAwesomeIcon icon={faShoppingCart} className="icon" /> {/* Icono para 'Productos' */}
                 Productos
@@ -36,7 +36,7 @@ export const BaseNavBar = () => {
               <a
                 className="nav-link active text-white"
                 aria-current="page"
-                href="/promociones/1"
+                href="/promociones"
               >
                 <FontAwesomeIcon icon={faTags} className="icon" /> {/* Icono para 'Promociones' */}
                 Promociones

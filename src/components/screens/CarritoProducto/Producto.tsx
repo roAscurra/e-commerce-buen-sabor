@@ -4,7 +4,6 @@ import ArticuloDto from "../../../types/dto/ArticuloDto";
 import Categoria from "../../../types/Categoria";
 import "./Producto.css";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
-import { useParams } from "react-router-dom";
 import CategoriaService from "../../../services/CategoriaService";
 import ArticuloDtoService from "../../../services/ArticuloDtoService";
 import { Button } from "@mui/material";
@@ -17,27 +16,44 @@ const articuloService = new ArticuloDtoService();
 const Producto = () => {
   const [productos, setProductos] = useState<ArticuloDto[]>([]);
   const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
-  const { sucursalId } = useParams();
   const url = import.meta.env.VITE_API_URL;
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (sucursalId) {
-        const sucursalIdNumber = parseInt(sucursalId);
+      const productData = await articuloService.getAll(url + 'ecommerce');
+      setProductos(productData);
+      setTodosLosProductos(productData); // Guardamos todos los productos aquí
 
-        const productData = await articuloService.getAll(url + 'ecommerce');
-        setProductos(productData);
-        setTodosLosProductos(productData);  // Guardamos todos los productos aquí
+      const categories = await categoriaService.getAll(url + "categoria");
+      setCategorias(categories);
+    };
 
-        const categories = await categoriaService.categoriaSucursal(url, sucursalIdNumber);
-        setCategorias(categories);
-        console.log(productos);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (selectedCategory !== null) {
+        const page = 0;
+        const size = 10;
+        const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
+
+        const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
+
+        if (allProducts.length === 0) {
+          setProductos(todosLosProductos);  // Si no hay productos en la categoría, mostramos todos los productos
+        } else {
+          setProductos(allProducts);
+        }
+      } else {
+        setProductos(todosLosProductos);  // Si la categoría es "Todas las categorías", mostramos todos los productos
       }
     };
-    fetchData();
-  }, [sucursalId]);
+
+    fetchFilteredProducts();
+  }, [selectedCategory]);
 
   const handleCategoryFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
@@ -57,29 +73,6 @@ const Producto = () => {
   const handleSortByPrice = () => {
     fetchProductSort();
   };
-
-  useEffect(() => {
-    const fetchFilteredProducts = async () => {
-      if (selectedCategory !== null) {
-        const page = 0;
-        const size = 10;
-        const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
-
-        const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
-
-        if (allProducts.length === 0) {
-          setProductos(todosLosProductos);  // Si no hay productos en la categoría, mostramos todos los productos
-        } else {
-          setProductos(allProducts);
-        }
-        console.log(allProducts);
-      } else {
-        setProductos(todosLosProductos);  // Si la categoría es "Todas las categorías", mostramos todos los productos
-      }
-    };
-
-    fetchFilteredProducts();
-  }, [selectedCategory, todosLosProductos]);
 
   if (productos.length === 0) {
     return (

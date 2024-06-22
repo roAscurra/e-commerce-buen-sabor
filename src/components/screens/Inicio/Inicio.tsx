@@ -1,6 +1,6 @@
 import './Inicio.css'; // Archivo CSS para estilos personalizados
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faTags, faArrowRight } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos específicos que necesitas
+import { faUtensils, faTags } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos específicos que necesitas
 
 export const Inicio = () => {
   return (
@@ -18,7 +18,7 @@ export const Inicio = () => {
               <div className="contenido-tarjeta">
                 <h3>Productos</h3>
                 <p>Descubre nuestra variedad de productos</p>
-                <a className='Boton' href="/carrito/1">
+                <a className='Boton' href="/carrito">
                   Ver productos aquí
                 </a>
               </div>
@@ -30,7 +30,7 @@ export const Inicio = () => {
               <div className="contenido-tarjeta">
                 <h3>Promociones</h3>
                 <p>Conoce nuestras promociones especiales</p>
-                <a className='Boton' href="/promociones/1">
+                <a className='Boton' href="/promociones">
                   Ver promociones aquí
                 </a>
               </div>

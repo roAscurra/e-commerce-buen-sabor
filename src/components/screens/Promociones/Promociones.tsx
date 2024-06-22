@@ -3,7 +3,6 @@ import PromocionService from "../../../services/PromocionService";
 import ItemPromocion from "./ItemPromocion";
 import Promocion from "../../../types/Promocion";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
-import { useParams } from "react-router-dom";
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
@@ -11,12 +10,10 @@ const Promociones = () => {
   const [promocionesPerPage] = useState(3); // Número de tarjetas por página
   const [searchTerm, setSearchTerm] = useState("");
   const promocionService = new PromocionService();
-  const { sucursalId } = useParams();
   const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
-      if (sucursalId) {
         const promocionData = await promocionService.getAll(url + "promocion");
         const formattedData = promocionData.map((promocion: Promocion) => ({
           ...promocion,
@@ -24,10 +21,9 @@ const Promociones = () => {
           fechaHasta: new Date(promocion.fechaHasta),
         }));
         setPromociones(formattedData);
-      }
     };
     fetchData();
-  }, [sucursalId]);
+  }, []);
 
   const indexOfLastPromocion = currentPage * promocionesPerPage;
   const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
