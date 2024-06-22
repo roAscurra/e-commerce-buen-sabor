@@ -53,20 +53,29 @@ button {
 }
 
 .btn-ingredientes {
-  height: 40px;
-  background-color: #26486e !important;
-  border-color: #26486e !important;
-  color: white !important;
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
+  color: white; /* Color del texto */
+  background-color: #60a0e6; /* Color de fondo */
+  border-color: #60a0e6; /* Color del borde */
+  font-size: 0.9rem; /* Tamaño de fuente */
+  padding: 8px 16px; /* Espaciado del botón */
+  border-radius: 6px; /* Bordes redondeados */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  border: none; /* Sin borde */
+
 }
 
 .btn-ingredientes:hover {
-  background-color: #132f4f !important;
-  border-color: #132f4f !important;
-  color: white !important;
+  background-color: #4076af; /* Color de fondo al pasar el ratón */
+  border-color: #4076af; /* Color del borde al pasar el ratón */
 }
+
+
+/* Opcional: Ajuste de padding para la visualización del ícono */
+.btn-ingredientes .faEye {
+  margin-right: 8px; /* Espaciado entre el icono y el texto */
+}
+
 
 @media (max-width: 768px) {
   .card-title {
