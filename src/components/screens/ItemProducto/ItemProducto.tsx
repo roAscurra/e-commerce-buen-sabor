@@ -43,9 +43,11 @@ const ItemProducto = (args: ProductoParams) => {
           {args.productoObject.tiempoEstimadoMinutos > 0 && (
             <>
               <p className="card-text">Tiempo de preparación: {args.productoObject.tiempoEstimadoMinutos} minutos</p>
-              <button className='btn-ingredientes' onClick={handleVerIngredientes}>
-                <FontAwesomeIcon icon={faEye} /> Ver detalle
-              </button>
+              <div className="search-ingredientes-container">
+                <button className='btn-ingredientes' onClick={handleVerIngredientes}>
+                  <FontAwesomeIcon icon={faEye} /> Ver detalle
+                </button>
+              </div>
             </>
           )}
           <IngredientesModal

@@ -1,3 +1,9 @@
+.productos-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el contenido */
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
 .tarjeta {
   display: flex;
   flex-direction: column;
@@ -62,7 +68,6 @@ button {
   transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   border: none; /* Sin borde */
-
 }
 
 .btn-ingredientes:hover {
@@ -70,12 +75,11 @@ button {
   border-color: #4076af; /* Color del borde al pasar el ratón */
 }
 
-
-/* Opcional: Ajuste de padding para la visualización del ícono */
-.btn-ingredientes .faEye {
-  margin-right: 8px; /* Espaciado entre el icono y el texto */
+.search-input {
+  flex: 1;
+  min-width: 0; /* Asegura que el input pueda reducir su tamaño */
+  margin-right: 10px; /* Espaciado a la derecha del input */
 }
-
 
 @media (max-width: 768px) {
   .card-title {
@@ -103,29 +107,4 @@ button {
   .card-text.h2 {
     font-size: 1rem;
   }
-}
-
-
-.icon-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.img-custom {
-  height: 236px;
-  object-fit: contain;
-}
-
-.rounded-image {
-  border-radius: 0px; 
-}
-
-.precio-container {
-  text-align: center;
-}
-
-.img-custom {
-  height: 236px;
-  object-fit: contain;
 }
