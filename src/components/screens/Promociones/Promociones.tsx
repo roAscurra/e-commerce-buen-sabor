@@ -158,7 +158,6 @@ const Promociones = () => {
                 <div className="promocion-card">
                   <ItemPromocion
                     denominacion={promocion.denominacion}
-                    descripcion={promocion.descripcionDescuento}
                     precioPromocional={promocion.precioPromocional}
                     promocionObject={promocion}
                     imagenes={promocion.imagenes}
