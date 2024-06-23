@@ -1,102 +1,83 @@
-
 /* Fondo de imagen */
 .inicio-container {
-    background-image: url('/images/ui/fast-food-seamless-background-template-vector.jpg'); /* Ruta a tu imagen de fondo */
-    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el contenedor */
-    background-position: center; /* Centra la imagen dentro del contenedor */
-    background-repeat: no-repeat; /* Evita la repetición de la imagen */
-    padding: 3rem 0; /* Añade relleno al contenedor para que el contenido no esté pegado al borde */
-  }
-  
-  /* Estilos para el contenido */
-  .contenido {
-    background-color: rgba(255, 255, 255, 0.692); /* Fondo semitransparente para el contenido */
-    padding: 2rem; /* Relleno interno para el contenido */
-    border-radius: 10px; /* Borde redondeado para el contenedor */
-  }
-  
+  background-image: url('/images/ui/fast-food-seamless-background-template-vector.jpg'); /* Ruta a tu imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el contenedor */
+  background-position: center; /* Centra la imagen dentro del contenedor */
+  background-repeat: no-repeat; /* Evita la repetición de la imagen */
+  padding: 3rem 0; /* Añade relleno al contenedor para que el contenido no esté pegado al borde */
+}
+
+/* Estilos para el contenido */
+.contenido {
+  background-color: rgba(255, 255, 255, 0.692); /* Fondo semitransparente para el contenido */
+  padding: 2rem; /* Relleno interno para el contenido */
+  border-radius: 10px; /* Borde redondeado para el contenedor */
+}
+
 /* Estilos para el título */
 .texto-principal {
-    font-family: 'Arial', sans-serif; /* Cambiar la fuente a Arial o la que desees */
-    font-size: 3rem; /* Tamaño del título */
-    color: #333; /* Color del texto */
-    text-align: center; /* Alineación centrada */
-    margin-top: 1rem; /* Márgen superior ajustado */
-    margin-bottom: 0; /* Eliminar margen inferior para que esté más cerca del siguiente elemento */
-  }
+  font-family: 'Arial', sans-serif; /* Cambiar la fuente a Arial o la que desees */
+  font-size: 3rem; /* Tamaño del título */
+  color: #333; /* Color del texto */
+  text-align: center; /* Alineación centrada */
+  margin-top: 1rem; /* Márgen superior ajustado */
+  margin-bottom: 0; /* Eliminar margen inferior para que esté más cerca del siguiente elemento */
+}
 
 .texto {
-    font-family: 'Roboto', sans-serif; /* Cambiar la fuente a Roboto o la que desees */
-    font-size: 1.2rem; /* Tamaño del texto */
-    color: #0f2341; /* Color del texto */
-    text-align: center; /* Alineación centrada */
-    margin: 1rem 0;
-  }
-  
+  font-family: 'Roboto', sans-serif; /* Cambiar la fuente a Roboto o la que desees */
+  font-size: 1.2rem; /* Tamaño del texto */
+  color: #0f2341; /* Color del texto */
+  text-align: center; /* Alineación centrada */
+  margin: 1rem 0;
+}
 
-.inicio-container {
-    padding: 20px;
-  }
-  
-  .contenido {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .texto {
-    margin-bottom: 40px;
-  }
-  
-  .tarjetas-container {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .tarjeta {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    width: 300px; /* Ajusta el ancho según sea necesario */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-  
-  .tarjeta:hover {
-    transform: translateY(-5px); /* Efecto de levantamiento al pasar el ratón */
-    box-shadow: 0px 0px 15px rgba(133, 92, 92, 0.2);
-  }
-  
-  .icono {
-    margin-bottom: 20px;
-  }
-  
-  .icono i {
-    color: #3975b6; /* Color del ícono */
-  }
-  
-  .contenido-tarjeta h3 {
-    margin-bottom: 10px;
-  }
-  
-  .contenido-tarjeta p {
-    color: #6c757d; /* Color del texto secundario */
-    font-size: 16px;
-    margin-bottom: 15px;
-  }
-  .contenido-tarjeta a {
-    display: inline-block;
-    background-color: #26486e; /* Color de fondo inicial del botón */
-    color: #ffffff; /* Color del texto inicial del botón */
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
-  }
-  
-  .contenido-tarjeta a:hover {
-    background-color: #5192d8; /* Cambio de color de fondo al pasar el mouse */
-    color: #ffffff; /* Cambio de color del texto al pasar el mouse */
-  }
-  
+.tarjeta {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px); /* Efecto de levantamiento al pasar el ratón */
+  box-shadow: 0px 0px 15px rgba(133, 92, 92, 0.2);
+}
+
+.icono {
+  margin-bottom: 20px;
+}
+
+.icono i {
+  color: #3975b6; /* Color del ícono */
+}
+
+.contenido-tarjeta h3 {
+  margin-bottom: 10px;
+}
+
+.contenido-tarjeta p {
+  color: #6c757d; /* Color del texto secundario */
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.Boton {
+  display: inline-block;
+  background-color: #26486e !important; /* Color de fondo inicial del botón */
+  color: #ffffff !important; /* Color del texto inicial del botón */
+  text-decoration: none !important;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  border: #26486e !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important; /* Transición suave */
+}
+
+.Boton:hover {
+  background-color: #5192d8 !important; /* Cambio de color de fondo al pasar el mouse */
+  color: #ffffff !important; /* Cambio de color del texto al pasar el mouse */
+}
