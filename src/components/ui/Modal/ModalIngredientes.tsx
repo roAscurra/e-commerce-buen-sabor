@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, Button, Carousel } from 'react-bootstrap';
 import ArticuloManufacturadoDetalle from '../../../types/ArticuloManufacturadoDetalle';
 import ArticuloDto from '../../../types/dto/ArticuloDto';
