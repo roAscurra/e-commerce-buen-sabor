@@ -125,23 +125,23 @@ const Promociones = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid promocion-container">
-        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
-          <input
-            type="text"
-            placeholder="Buscar promoción..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="form-control search-input me-3"
-          />
+        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center filter-container">
           <select
             value={selectedPromotionType}
             onChange={handlePromotionTypeFilter}
-            className="form-select me-3"
+            className="form-select filter-select"
           >
             <option value="">Todas las promociones</option>
             <option value={TipoPromocion.HAPPY_HOUR}>Happy Hour</option>
             <option value={TipoPromocion.PROMOCION}>Promoción</option>
           </select>
+          <input
+            type="text"
+            placeholder="Buscar promoción..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="form-control search-input"
+          />
           <Button className="ordenar-btn" onClick={handleSortByPrice}>
             <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
             Ordenar por menor precio
