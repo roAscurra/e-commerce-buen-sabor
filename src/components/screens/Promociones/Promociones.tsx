@@ -3,11 +3,9 @@ import PromocionService from "../../../services/PromocionService";
 import ItemPromocion from "./ItemPromocion";
 import Promocion from "../../../types/Promocion";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
-import { Button } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
 import "./Promociones.css";
 import { TipoPromocion } from "../../../types/enums/TipoPromocion";
+import FilterBar from "../../ui/FilterBar/Filterbar";
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
@@ -115,79 +113,75 @@ const Promociones = () => {
       </>
     );
   }
-
+  const handleClearFilters = () => {
+    setSelectedPromotionType("");
+    setSearchTerm("");
+  };
+  
   return (
-    <>
-      <BaseNavBar />
-      <div className="container-fluid promocion-container">
-        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center filter-container">
-          <select
-            value={selectedPromotionType}
-            onChange={handlePromotionTypeFilter}
-            className="form-select filter-select"
-          >
-            <option value="">Todas las promociones</option>
-            <option value={TipoPromocion.HAPPY_HOUR}>Happy Hour</option>
-            <option value={TipoPromocion.PROMOCION}>Promoción</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Buscar promoción..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="form-control search-input"
-          />
-          <Button className="ordenar-btn" onClick={handleSortByPrice}>
-            <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
-            Ordenar por menor precio
-          </Button>
-        </div>
-        {currentPromocionesFiltered.length === 0 && searchTerm && (
-          <div className="alert alert-warning" role="alert">
-            Sin resultados para "{searchTerm}"
-          </div>
-        )}
-        {filteredPromocionesType.length === 0 && selectedPromotionType && (
-          <div className="alert alert-warning" role="alert">
-            Sin resultados para el tipo de promoción seleccionado
-          </div>
-        )}
-
-          <div className="row">
-            {currentPromociones.map((promocion, index) => (
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
-                <div className="promocion-card">
-                  <ItemPromocion
-                    denominacion={promocion.denominacion}
-                    precioPromocional={promocion.precioPromocional}
-                    promocionObject={promocion}
-                    imagenes={promocion.imagenes}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+<>
+  <BaseNavBar />
+  <div className="container-fluid promocion-container">
+    <FilterBar
+      selectedOption={selectedPromotionType}
+      handleOptionFilter={handlePromotionTypeFilter}
+      searchTerm={searchTerm}
+      handleSearchChange={handleSearchChange}
+      handleSortByPrice={handleSortByPrice}
+      handleClearFilters={handleClearFilters}
+      options={[
+        { value: "", label: "Todas las promociones" },
+        { value: TipoPromocion.HAPPY_HOUR, label: "Happy Hour" },
+        { value: TipoPromocion.PROMOCION, label: "Promoción" },
+        // Puedes agregar más opciones aquí si lo necesitas
+      ]}
+    />
+    {currentPromocionesFiltered.length === 0 && searchTerm && (
+      <div className="alert alert-warning" role="alert">
+        Sin resultados para "{searchTerm}"
       </div>
-      <nav>
-        <ul className="pagination justify-content-center m-3">
-          {[...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage))].map(
-            (_, index) => (
-              <li
-                key={index}
-                className={`page-item ${index + 1 === currentPage ? "principal-active" : "principal-inactive"}`}
-              >
-                <button
-                  onClick={() => paginate(index + 1)}
-                  className="page-link"
-                >
-                  {index + 1}
-                </button>
-              </li>
-            )
-          )}
-        </ul>
-      </nav>
-    </>
+    )}
+    {filteredPromocionesType.length === 0 && selectedPromotionType && (
+      <div className="alert alert-warning" role="alert">
+        Sin resultados para el tipo de promoción seleccionado
+      </div>
+    )}
+    <div className="row">
+      {currentPromociones.map((promocion, index) => (
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
+          <div className="promocion-card">
+            <ItemPromocion
+              denominacion={promocion.denominacion}
+              precioPromocional={promocion.precioPromocional}
+              promocionObject={promocion}
+              imagenes={promocion.imagenes}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  <nav>
+    <ul className="pagination justify-content-center m-3">
+      {[...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage))].map(
+        (_, index) => (
+          <li
+            key={index}
+            className={`page-item ${index + 1 === currentPage ? "principal-active" : "principal-inactive"}`}
+          >
+            <button
+              onClick={() => paginate(index + 1)}
+              className="page-link"
+            >
+              {index + 1}
+            </button>
+          </li>
+        )
+      )}
+    </ul>
+  </nav>
+</>
+
   );
 };
 

@@ -6,9 +6,7 @@ import "./Producto.css";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
 import CategoriaService from "../../../services/CategoriaService";
 import ArticuloDtoService from "../../../services/ArticuloDtoService";
-import { Button } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
+import FilterBar from "../../ui/FilterBar/Filterbar";
 
 const categoriaService = new CategoriaService();
 const articuloService = new ArticuloDtoService();
@@ -119,34 +117,26 @@ const Producto = () => {
       </>
     );
   }
+  const handleClearFilters = () => {
+    setSelectedCategory(null);
+    setSearchTerm("");
+  };
   return (
     <>
         <BaseNavBar />
         <div className="container-fluid producto-container">
-            <div className="filtros-container">
-                <select
-                    className="form-control custom-select filtro-categoria"
-                    onChange={handleCategoryFilter}
-                >
-                    <option value="">Todas las categorías</option>
-                    {categorias.map((categoria) => (
-                        <option key={categoria.id} value={categoria.id}>
-                            {categoria.denominacion}
-                        </option>
-                    ))}
-                </select>
-                <input
-                    type="text"
-                    placeholder="Buscar producto..."
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    className="form-control search-input"
-                />
-                <Button className="ordenar-btn" onClick={handleSortByPrice}>
-                    <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
-                    Ordenar por menor precio
-                </Button>
-            </div>
+        <FilterBar
+          selectedOption={selectedCategory}
+          handleOptionFilter={handleCategoryFilter}
+          searchTerm={searchTerm}
+          handleSearchChange={handleSearchChange}
+          handleSortByPrice={handleSortByPrice}
+          handleClearFilters={handleClearFilters}
+          options={[
+            { value: "", label: "Todas las categorías" },
+            ...categorias.map(categoria => ({ value: categoria.id, label: categoria.denominacion }))
+          ]}
+        />
             {noProductsMessage && (
                 <div className="alert alert-warning" role="alert">
                     {noProductsMessage}
