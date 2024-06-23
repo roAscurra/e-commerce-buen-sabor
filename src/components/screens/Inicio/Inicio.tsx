@@ -1,6 +1,7 @@
 import './Inicio.css'; // Archivo CSS para estilos personalizados
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faTags } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos específicos que necesitas
+import { Link } from 'react-router-dom';
 
 export const Inicio = () => {
   return (
@@ -30,9 +31,9 @@ export const Inicio = () => {
               <div className="contenido-tarjeta">
                 <h3>Promociones</h3>
                 <p>Conoce nuestras promociones especiales</p>
-                <a className='Boton' href="/promociones">
+                <Link className='Boton' to="/promociones">
                   Ver promociones aquí
-                </a>
+                </Link>
               </div>
             </div>
           </div>
