@@ -51,8 +51,8 @@ const ItemProducto = (args: ProductoParams) => {
         </div>
 
         <div className="card-body altura-cuerpo">
-          <h5 className="card-title">{args.denominacion}</h5>
-          <div className="precio-container">
+        <h5 className="card-title text-truncate" title={args.denominacion}>{args.denominacion}</h5>
+        <div className="precio-container">
             <p className="card-text h4">$ {args.precioVenta}</p>
           </div>
 

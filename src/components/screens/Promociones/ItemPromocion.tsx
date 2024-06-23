@@ -49,9 +49,8 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
             </Carousel>
           )}
         </div>
-
         <div className="card-body altura-cuerpo">
-          <h5 className="card-title">{denominacion}</h5>
+          <h5 className="card-title text-truncate" title={denominacion}>{denominacion}</h5>
           <p className="card-text h4">$ {precioPromocional}</p>
           <button className="btn btn-principal" onClick={handleViewDetail}>
             <FontAwesomeIcon icon={faEye} /> Ver detalle

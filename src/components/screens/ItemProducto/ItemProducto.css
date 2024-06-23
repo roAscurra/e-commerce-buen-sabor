@@ -42,3 +42,13 @@
   background-color: #1a3651; /* Color más oscuro para el hover */
   color: #ffff;
 }
+.card-title {
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card-title:hover {
+  white-space: normal;
+}
