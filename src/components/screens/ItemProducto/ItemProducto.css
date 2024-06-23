@@ -1,110 +1,35 @@
 .productos-container {
   display: flex;
-  justify-content: center; /* Centra horizontalmente el contenido */
-  align-items: center; /* Centra verticalmente el contenido */
+  justify-content: center;
+  align-items: center;
 }
 
 .tarjeta {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ddd;
+  width: 100%;
+  border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.2s;
 }
 
-.tarjeta:hover {
-  transform: scale(1.05);
-}
-
-.card-img-top {
-  width: 100%;
-  height: auto;
-}
-
-.altura-cuerpo {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+.img-container {
+  height: 300px; /* Establece la altura de la imagen */
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: flex; /* Usa flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
 }
 
-.precio-container {
+
+.no-image-placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 0;
+  background-color: #f0f0f0;
 }
 
-.card-text.h2 {
-  font-size: 1.5rem;
-  margin: 0;
-}
 
-button {
-  align-self: center;
-  margin-top: 10px;
-}
-
-.btn-ingredientes {
-  color: white; /* Color del texto */
-  background-color: #60a0e6; /* Color de fondo */
-  border-color: #60a0e6; /* Color del borde */
-  font-size: 0.9rem; /* Tamaño de fuente */
-  padding: 8px 16px; /* Espaciado del botón */
-  border-radius: 6px; /* Bordes redondeados */
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  border: none; /* Sin borde */
-}
-
-.btn-ingredientes:hover {
-  background-color: #4076af; /* Color de fondo al pasar el ratón */
-  border-color: #4076af; /* Color del borde al pasar el ratón */
-}
-
-.search-input {
-  flex: 1;
-  min-width: 0; /* Asegura que el input pueda reducir su tamaño */
-  margin-right: 10px; /* Espaciado a la derecha del input */
-}
-
-@media (max-width: 768px) {
-  .card-title {
-    font-size: 1rem;
-  }
-
-  .precio-container {
-    flex-direction: column;
-  }
-
-  .card-text.h2 {
-    font-size: 1.2rem;
-  }
-
-  button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 576px) {
-  .card-title {
-    font-size: 0.9rem;
-  }
-
-  .card-text.h2 {
-    font-size: 1rem;
-  }
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

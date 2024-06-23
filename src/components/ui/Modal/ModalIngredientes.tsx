@@ -40,7 +40,8 @@ const IngredientesModal = ({ open, onClose, ingredientes, product }: Ingrediente
             </div>
             <div className="col-sm-6">
               <h5>Descripción: {product.descripcion}</h5>
-              <p>Ingredientes:</p>
+              <p><b>Tiempo de prepación: </b>{product.tiempoEstimadoMinutos} minutos</p>
+              <p><b>Ingredientes: </b></p>
               <p>
                 {ingredientes.map((ingrediente, index) => (
                   <span key={index}>

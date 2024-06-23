@@ -3,8 +3,7 @@ import ArticuloDto from '../../../types/dto/ArticuloDto';
 import { useState } from "react";
 import ArticuloManufacturadoDetalle from "../../../types/ArticuloManufacturadoDetalle";
 import IngredientesModal from '../../ui/Modal/ModalIngredientes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { Carousel } from 'react-bootstrap';
 
 type ProductoParams = {
   id: number;
@@ -26,13 +25,29 @@ const ItemProducto = (args: ProductoParams) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
+console.log(args.productoObject)
   return (
     <div className="productos-container">
       <div className="card tarjeta">
-        {args.productoObject.imagenes && args.productoObject.imagenes.length > 0 && (
-          <img src={args.productoObject.imagenes[0].url} className="card-img-top" alt={args.denominacion} />
-        )}
+        <div className="img-container">
+          {args.productoObject.imagenes && args.productoObject.imagenes.length > 0 ? (
+            <Carousel>
+              {args.productoObject.imagenes.map((imagen, index) => (
+                <Carousel.Item key={index}>
+                  <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
+                    <img
+                    src={imagen.url}
+                    alt={`Slide ${index}`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          ) : (
+            <div className="no-image-placeholder">No hay imágenes disponibles</div>
+          )}
+        </div>
 
         <div className="card-body altura-cuerpo">
           <h5 className="card-title text-truncate">{args.denominacion}</h5>
@@ -40,17 +55,27 @@ const ItemProducto = (args: ProductoParams) => {
             <p className="card-text h2">$ {args.precioVenta}</p>
           </div>
 
-          {args.productoObject.tiempoEstimadoMinutos > 0 && (
-            <>
-              <p className="card-text">Tiempo de preparación: {args.productoObject.tiempoEstimadoMinutos} minutos</p>
-              <div className="search-ingredientes-container">
-                <button className='btn-ingredientes' onClick={handleVerIngredientes}>
-                  <FontAwesomeIcon icon={faEye} /> Ver detalle
-                </button>
-              </div>
-            </>
+          {args.productoObject.tiempoEstimadoMinutos && (
+            <div className="search-ingredientes-container m-3">
+              <button
+                onClick={handleVerIngredientes}
+                className='btn btn-primary'
+              >
+                Ver detalle
+              </button>
+            </div>
           )}
-          <IngredientesModal
+          {!args.productoObject.tiempoEstimadoMinutos && (
+            <div className="search-ingredientes-container m-3" style={{ visibility: "hidden" }}>
+              <button
+                className='btn btn-primary'
+                disabled
+              >
+                Ver detalle
+              </button>
+            </div>
+          )}
+            <IngredientesModal
             open={showModal}
             onClose={handleCloseModal}
             ingredientes={ingredientes}
