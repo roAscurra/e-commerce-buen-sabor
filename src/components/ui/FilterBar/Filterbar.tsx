@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpShortWide, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
 
 interface FilterBarProps {
   selectedOption: any;
@@ -69,10 +69,9 @@ const FilterBar: React.FC<FilterBarProps> = ({
             <Button
             className="btn btn-clear-filter"
             onClick={clearFilters}
-            style={{ backgroundColor: "#FF6347", color: "white", height: "100%", width: "100%", margin: 0 }}
+            style={{ backgroundColor: "#6093ce", color: "white", height: "100%", width: "100%", margin: 0 }}
             >
-            <FontAwesomeIcon icon={faTimes} />
-            Limpiar
+            Limpiar filtros
             </Button>
         </div>
         </>
