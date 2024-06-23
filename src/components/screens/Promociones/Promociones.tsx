@@ -147,6 +147,12 @@ const Promociones = () => {
             Sin resultados para "{searchTerm}"
           </div>
         )}
+        {filteredPromocionesType.length === 0 && selectedPromotionType && (
+          <div className="alert alert-warning" role="alert">
+            Sin resultados para el tipo de promoción seleccionado
+          </div>
+        )}
+
           <div className="row">
             {currentPromociones.map((promocion, index) => (
               <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
