@@ -119,76 +119,81 @@ const Producto = () => {
       </>
     );
   }
-
   return (
     <>
-      <BaseNavBar />
-      <div className="container-fluid producto-container">
-        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
-          <input
-            type="text"
-            placeholder="Buscar producto..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="form-control search-input me-3"
-          />
-          <select
-            className="form-control custom-select filtro-categoria"
-            onChange={handleCategoryFilter}
-          >
-            <option value="">Todas las categorías</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.denominacion}
-              </option>
-            ))}
-          </select>
-          <Button
-            className="ordenar-btn ms-3"
-            onClick={handleSortByPrice}
-          >
-            <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
-            Ordenar por menor precio
-          </Button>
-        </div>
-        {noProductsMessage && (
-          <div className="alert alert-warning" role="alert">
-            {noProductsMessage}
-          </div>
-        )}
-        {(filteredProductos.length === 0) && searchTerm && (
-          <div className="alert alert-warning" role="alert">
-            Sin resultados
-          </div>
-        )}
-        <div className="row">
-          {currentProductos.map((producto, index) => (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
-              <div className="producto-card">
-                <ItemProducto
-                  id={producto.id}
-                  denominacion={producto.denominacion}
-                  precioVenta={producto.precioVenta}
-                  productoObject={producto}
+        <BaseNavBar />
+        <div className="container-fluid producto-container">
+            <div className="filtros-container">
+                <select
+                    className="form-control custom-select filtro-categoria"
+                    onChange={handleCategoryFilter}
+                >
+                    <option value="">Todas las categorías</option>
+                    {categorias.map((categoria) => (
+                        <option key={categoria.id} value={categoria.id}>
+                            {categoria.denominacion}
+                        </option>
+                    ))}
+                </select>
+                <input
+                    type="text"
+                    placeholder="Buscar producto..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="form-control search-input"
                 />
-              </div>
+                <Button className="ordenar-btn" onClick={handleSortByPrice}>
+                    <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
+                    Ordenar por menor precio
+                </Button>
             </div>
-          ))}
+            {noProductsMessage && (
+                <div className="alert alert-warning" role="alert">
+                    {noProductsMessage}
+                </div>
+            )}
+            {(filteredProductos.length === 0) && searchTerm && (
+              <div className="alert alert-warning" role="alert">
+                Sin resultados
+              </div>
+            )}
+            <div className="row">
+                {currentProductos.map((producto, index) => (
+                    <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
+                        <div className="producto-card">
+                            <ItemProducto
+                                id={producto.id}
+                                denominacion={producto.denominacion}
+                                precioVenta={producto.precioVenta}
+                                productoObject={producto}
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <nav>
+                <ul className="pagination justify-content-center">
+                    {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map(
+                        (_, index) => (
+                            <li
+                                key={index}
+                                className={`page-item ${
+                                    index + 1 === currentPage ? "active" : ""
+                                }`}
+                            >
+                                <button
+                                    onClick={() => paginate(index + 1)}
+                                    className="page-link"
+                                >
+                                    {index + 1}
+                                </button>
+                            </li>
+                        )
+                    )}
+                </ul>
+            </nav>
         </div>
-        <nav>
-          <ul className="pagination justify-content-center">
-            {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map((_, index) => (
-              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
-                <button onClick={() => paginate(index + 1)} className="page-link">
-                  {index + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
     </>
   );
 };
-
 export default Producto;
