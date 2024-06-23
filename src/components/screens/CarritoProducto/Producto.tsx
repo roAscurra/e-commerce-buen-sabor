@@ -172,26 +172,25 @@ const Producto = () => {
                 ))}
             </div>
             <nav>
-                <ul className="pagination justify-content-center">
-                    {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map(
-                        (_, index) => (
-                            <li
-                                key={index}
-                                className={`page-item ${
-                                    index + 1 === currentPage ? "active" : ""
-                                }`}
-                            >
-                                <button
-                                    onClick={() => paginate(index + 1)}
-                                    className="page-link"
-                                >
-                                    {index + 1}
-                                </button>
-                            </li>
-                        )
-                    )}
-                </ul>
+              <ul className="pagination justify-content-center">
+                {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map(
+                  (_, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${index + 1 === currentPage ? "principal-active" : "principal-inactive"}`}
+                    >
+                      <button
+                        onClick={() => paginate(index + 1)}
+                        className="page-link"
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  )
+                )}
+              </ul>
             </nav>
+
         </div>
     </>
   );

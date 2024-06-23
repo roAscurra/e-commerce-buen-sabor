@@ -4,6 +4,8 @@ import { useState } from "react";
 import ArticuloManufacturadoDetalle from "../../../types/ArticuloManufacturadoDetalle";
 import IngredientesModal from '../../ui/Modal/ModalIngredientes';
 import { Carousel } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 type ProductoParams = {
   id: number;
@@ -59,16 +61,16 @@ console.log(args.productoObject)
             <div className="search-ingredientes-container m-3">
               <button
                 onClick={handleVerIngredientes}
-                className='btn btn-primary'
+                className='btn btn-principal'
               >
-                Ver detalle
+                <FontAwesomeIcon icon={faEye} /> Ver detalle
               </button>
             </div>
           )}
           {!args.productoObject.tiempoEstimadoMinutos && (
             <div className="search-ingredientes-container m-3" style={{ visibility: "hidden" }}>
               <button
-                className='btn btn-primary'
+                className='btn btn-principal'
                 disabled
               >
                 Ver detalle

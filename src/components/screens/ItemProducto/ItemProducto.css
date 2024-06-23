@@ -33,3 +33,12 @@
   height: 100%;
   object-fit: cover;
 }
+
+.btn-principal{
+  background-color: #26486e;
+  color: #ffff;
+}
+.btn-principal:hover {
+  background-color: #1a3651; /* Color más oscuro para el hover */
+  color: #ffff;
+}

@@ -171,18 +171,21 @@ const Promociones = () => {
       </div>
       <nav>
         <ul className="pagination justify-content-center">
-          {[
-            ...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage)),
-          ].map((_, index) => (
-            <li
-              key={index}
-              className={`page-item ${index + 1 === currentPage ? "active" : ""}`}
-            >
-              <Button onClick={() => paginate(index + 1)} className="page-link">
-                {index + 1}
-              </Button>
-            </li>
-          ))}
+          {[...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage))].map(
+            (_, index) => (
+              <li
+                key={index}
+                className={`page-item ${index + 1 === currentPage ? "principal-active" : "principal-inactive"}`}
+              >
+                <button
+                  onClick={() => paginate(index + 1)}
+                  className="page-link"
+                >
+                  {index + 1}
+                </button>
+              </li>
+            )
+          )}
         </ul>
       </nav>
     </>
