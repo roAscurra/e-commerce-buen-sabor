@@ -15,7 +15,6 @@ interface ItemPromocionProps {
 }
 
 const ItemPromocion: React.FC<ItemPromocionProps> = ({
-  id,
   denominacion,
   descripcion,
   precioPromocional,

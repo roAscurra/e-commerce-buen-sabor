@@ -4,7 +4,6 @@ import ArticuloDto from "../../../types/dto/ArticuloDto";
 import Categoria from "../../../types/Categoria";
 import "./Producto.css";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
-import { useParams } from "react-router-dom";
 import CategoriaService from "../../../services/CategoriaService";
 import ArticuloDtoService from "../../../services/ArticuloDtoService";
 import { Button } from "@mui/material";
@@ -17,31 +16,61 @@ const articuloService = new ArticuloDtoService();
 const Producto = () => {
   const [productos, setProductos] = useState<ArticuloDto[]>([]);
   const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
-  const { sucursalId } = useParams();
-  const url = import.meta.env.VITE_API_URL;
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [noProductsMessage, setNoProductsMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productosPerPage] = useState(4);
+  const [searchTerm, setSearchTerm] = useState("");
+  const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
-      if (sucursalId) {
-        const sucursalIdNumber = parseInt(sucursalId);
+      const productData = await articuloService.getAll(url + 'ecommerce');
+      setProductos(productData);
+      setTodosLosProductos(productData);
 
-        const productData = await articuloService.getAll(url + 'ecommerce');
-        setProductos(productData);
-        setTodosLosProductos(productData);  // Guardamos todos los productos aquí
+      const categories = await categoriaService.getAll(url + "categoria");
+      setCategorias(categories);
+    };
 
-        const categories = await categoriaService.categoriaSucursal(url, sucursalIdNumber);
-        setCategorias(categories);
-        console.log(productos);
+    fetchData();
+  }, []);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Resetear a la primera página al buscar
+  };
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (selectedCategory !== null) {
+        const page = 0;
+        const size = 10;
+        const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
+
+        const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
+
+        if (allProducts.length === 0) {
+          setProductos(todosLosProductos);
+          setNoProductsMessage("No hay productos para esta categoría.");
+        } else {
+          setNoProductsMessage("");
+          setProductos(allProducts);
+        }
+      } else {
+        setNoProductsMessage("");
+        setProductos(todosLosProductos);
       }
     };
-    fetchData();
-  }, [sucursalId]);
+
+    fetchFilteredProducts();
+  }, [selectedCategory]);
 
   const handleCategoryFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     setSelectedCategory(selectedValue ? parseInt(selectedValue) : null);
+    setCurrentPage(1); // Resetear a la primera página al cambiar de categoría
   };
 
   const fetchProductSort = async () => {
@@ -58,30 +87,19 @@ const Producto = () => {
     fetchProductSort();
   };
 
-  useEffect(() => {
-    const fetchFilteredProducts = async () => {
-      if (selectedCategory !== null) {
-        const page = 0;
-        const size = 10;
-        const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
+  // Filtrar productos según la categoría y el término de búsqueda
+  const filteredProductos = productos.filter((producto) =>
+    producto.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-        const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
+  // Calcular los índices para la paginación
+  const indexOfLastProducto = currentPage * productosPerPage;
+  const indexOfFirstProducto = indexOfLastProducto - productosPerPage;
+  const currentProductos = filteredProductos.slice(indexOfFirstProducto, indexOfLastProducto);
 
-        if (allProducts.length === 0) {
-          setProductos(todosLosProductos);  // Si no hay productos en la categoría, mostramos todos los productos
-        } else {
-          setProductos(allProducts);
-        }
-        console.log(allProducts);
-      } else {
-        setProductos(todosLosProductos);  // Si la categoría es "Todas las categorías", mostramos todos los productos
-      }
-    };
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-    fetchFilteredProducts();
-  }, [selectedCategory, todosLosProductos]);
-
-  if (productos.length === 0) {
+  if (productos.length === 0 && noProductsMessage) {
     return (
       <>
         <BaseNavBar />
@@ -91,8 +109,7 @@ const Producto = () => {
             "d-flex flex-column justify-content-center align-items-center w-100"
           }
         >
-          <div className="spinner-border" role="status"></div>
-          <div>Cargando los productos</div>
+          <div>{noProductsMessage}</div>
         </div>
       </>
     );
@@ -103,6 +120,13 @@ const Producto = () => {
       <BaseNavBar />
       <div className="container-fluid producto-container">
         <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="form-control search-input me-3"
+          />
           <select
             className="form-control custom-select filtro-categoria"
             onChange={handleCategoryFilter}
@@ -122,8 +146,13 @@ const Producto = () => {
             Ordenar por menor precio
           </Button>
         </div>
+        {noProductsMessage && (
+          <div className="alert alert-warning" role="alert">
+            {noProductsMessage}
+          </div>
+        )}
         <div className="row">
-          {productos.map((producto, index) => (
+          {currentProductos.map((producto, index) => (
             <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
@@ -136,10 +165,20 @@ const Producto = () => {
             </div>
           ))}
         </div>
+        <nav>
+          <ul className="pagination justify-content-center">
+            {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map((_, index) => (
+              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+                <button onClick={() => paginate(index + 1)} className="page-link">
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </>
   );
-  
 };
 
 export default Producto;

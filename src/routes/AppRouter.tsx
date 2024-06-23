@@ -1,8 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Inicio from "../components/screens/Inicio/Inicio.tsx";
 import Producto from '../components/screens/CarritoProducto/Producto.tsx';
-import { ListaPedidos } from '../components/screens/Pedidos/ListaPedidos.tsx';
-import {Registro} from "../components/screens/Registro/Registro.tsx";
 import Promociones from '../components/screens/Promociones/Promociones.tsx';
 // import {AuthenticationGuard} from "../auth0/AuthenticationGuard.tsx";
 
@@ -12,11 +10,9 @@ const AppRouter = () => {
     
     <Routes>
       <Route path="/" element={<Inicio />} />
-      <Route path="/inicio/:sucursalId" element={<Inicio />} />
-      <Route path="/registro" element={<Registro/>} />
-      <Route path="/carrito/:sucursalId" element={<Producto />} />
-      <Route path="/pedidos/:sucursalId" element={<ListaPedidos/>}/>
-      <Route path="/promociones/:sucursalId" element={<Promociones/>} ></Route>
+      <Route path="/inicio" element={<Inicio />} />
+      <Route path="/carrito" element={<Producto />} />
+      <Route path="/promociones" element={<Promociones/>} ></Route>
     </Routes>
   );
 };

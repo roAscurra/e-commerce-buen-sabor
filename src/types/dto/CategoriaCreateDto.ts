@@ -1,6 +1,5 @@
 import DataModel from "../DataModel";
 import CategoriaShorDto from "./CategoriaShorDto";
-import SucursalShorDto from "./SucursalShortDto";
 
 
 interface CategoriaCreateDto extends DataModel<CategoriaCreateDto>{
@@ -9,12 +8,6 @@ interface CategoriaCreateDto extends DataModel<CategoriaCreateDto>{
     denominacion: string,
     esInsumo: false,
     subCategoria: CategoriaShorDto[],
-    sucursales: SucursalShorDto[]
 }
 
 export default CategoriaCreateDto;
-
-// private String denominacion;
-// private Set<SubCategoriaFullDto> subCategorias;
-// private Set<SucursalShortDto> sucursales;
-// private boolean esInsumo;

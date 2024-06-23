@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 input.custom-search-input {
     width: 100%;
@@ -5,3 +6,49 @@ input.custom-search-input {
     margin: 0 auto;
   }
   
+=======
+.promocion-container {
+    padding: 20px;
+    background-color: #d7d7d7;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.mt-3 {
+    margin-top: 2rem;
+}
+
+.mb-3 {
+    margin-bottom: 2rem;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.ordenar-btn {
+    height: 45px;
+    background-color: #26486e !important;
+    border-color: #26486e !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.ordenar-btn:hover {
+    background-color: #132f4f !important;
+    border-color: #132f4f !important;
+    color: white !important;
+}
+
+.search-input {
+    flex: 0 0 400px;
+}
+>>>>>>> main

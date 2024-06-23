@@ -1,7 +1,6 @@
 import DataModel from "./DataModel";
 import Imagen from "./Imagen";
 import PromocionDetalle from "./PromocionDetalle";
-import SucursalShorDto from "./dto/SucursalShortDto";
 
 interface Promocion extends DataModel<Promocion>{
   denominacion: string,
@@ -13,7 +12,6 @@ interface Promocion extends DataModel<Promocion>{
   precioPromocional: number,
   tipoPromocion: string,
   imagenes: Imagen[],
-  sucursales: SucursalShorDto[],
   promocionDetalle: PromocionDetalle[]
 }
 export default Promocion;

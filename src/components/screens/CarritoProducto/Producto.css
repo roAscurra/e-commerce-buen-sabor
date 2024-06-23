@@ -31,7 +31,7 @@
 }
 
 .ordenar-btn {
-    height: 40px;
+    height: 45px;
     background-color: #26486e !important;
     border-color: #26486e !important;
     color: white !important;
@@ -64,4 +64,8 @@
         width: 100%;
         margin-bottom: 20px;
     }
+}
+
+.search-input {
+    flex: 0 0 400px;
 }
