@@ -147,6 +147,11 @@ const Promociones = () => {
             Ordenar por menor precio
           </Button>
         </div>
+        {currentPromocionesFiltered.length === 0 && searchTerm && (
+          <div className="alert alert-warning" role="alert">
+            Sin resultados para "{searchTerm}"
+          </div>
+        )}
           <div className="row">
             {currentPromociones.map((promocion, index) => (
               <div className="col-sm-4 mb-3" key={index}>
