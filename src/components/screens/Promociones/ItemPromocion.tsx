@@ -8,7 +8,6 @@ import { Carousel } from 'react-bootstrap';
 
 interface ItemPromocionProps {
   denominacion: string;
-  descripcion: string;
   precioPromocional: number;
   imagenes: any[];
   promocionObject: Promocion;
@@ -16,7 +15,6 @@ interface ItemPromocionProps {
 
 const ItemPromocion: React.FC<ItemPromocionProps> = ({
   denominacion,
-  descripcion,
   precioPromocional,
   imagenes,
   promocionObject
@@ -51,11 +49,9 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
             </Carousel>
           )}
         </div>
-
         <div className="card-body altura-cuerpo">
-          <h5 className="card-title">{denominacion}</h5>
-          <p className="card-text">{descripcion}</p>
-          <p className="card-text"><strong>${precioPromocional}</strong></p>
+          <h5 className="card-title text-truncate" title={denominacion}>{denominacion}</h5>
+          <p className="card-text h4">$ {precioPromocional}</p>
           <button className="btn btn-principal" onClick={handleViewDetail}>
             <FontAwesomeIcon icon={faEye} /> Ver detalle
           </button>

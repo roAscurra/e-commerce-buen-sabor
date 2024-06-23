@@ -81,7 +81,6 @@ const Promociones = () => {
       }
     } else {
       setFilteredPromocionesType([]); // Si no hay tipo seleccionado, vaciar las promociones filtradas
-      setIsLoading(false);
     }
   };
 
@@ -104,7 +103,7 @@ const Promociones = () => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Resetear a la primera página al buscar
   };
-  if(isLoading){
+  if(isLoading && currentPromociones.length === 0){
     return (
       <>
         <BaseNavBar />
@@ -158,7 +157,6 @@ const Promociones = () => {
                 <div className="promocion-card">
                   <ItemPromocion
                     denominacion={promocion.denominacion}
-                    descripcion={promocion.descripcionDescuento}
                     precioPromocional={promocion.precioPromocional}
                     promocionObject={promocion}
                     imagenes={promocion.imagenes}
@@ -169,7 +167,7 @@ const Promociones = () => {
           </div>
       </div>
       <nav>
-        <ul className="pagination justify-content-center">
+        <ul className="pagination justify-content-center m-3">
           {[...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage))].map(
             (_, index) => (
               <li

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Modal, Button, Row, Col, Card, Carousel } from "react-bootstrap";
 import Promocion from "../../../types/Promocion";
 
 interface PromocionModalProps {
@@ -15,92 +15,62 @@ const PromocionModal: React.FC<PromocionModalProps> = ({
 }) => {
   if (!promocion) return null;
 
-  const fechaDesde = new Date(promocion.fechaDesde).toLocaleDateString('es-ES', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  // Concatenar los detalles de la promoción en un solo texto
+  const detallesPromocion = promocion.promocionDetalle.map(
+    (detalle) =>
+      `${detalle.cantidad} ${detalle.articulo.denominacion.toLocaleLowerCase()}`
+  ).join(",");
 
-  const fechaHasta = new Date(promocion.fechaHasta).toLocaleDateString('es-ES', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  const imageUrlArray = promocion.imagenes?.map(image => image.url) || [];
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton className="justify-content-center">
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
         <Modal.Title style={{ color: "#5d8ec7", textAlign: "center", width: "100%" }}>
           {promocion.denominacion}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {promocion.promocionDetalle.length > 0 && (
-          <div className="mb-4">
-            <h5>Combo:</h5>
-            <ListGroup>
-              {promocion.promocionDetalle.map((detalle) => (
-                <ListGroup.Item key={detalle.id}>
-                  <Row>
-                    <Col>
-                      <strong>Cantidad:</strong> {detalle.cantidad}
-                    </Col>
-                    <Col>
-                      <strong>Artículo:</strong> {detalle.articulo.denominacion}
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </div>
-        )}
-        <Card>
-          <Card.Body>
-            {promocion.imagenes.length > 0 && (
-              <div className="d-flex justify-content-center">
+        <Carousel>
+          {imageUrlArray.map((url, index) => (
+            <Carousel.Item key={index}>
+              <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
                 <img
-                  src={promocion.imagenes[0].url}
-                  alt={promocion.denominacion}
-                  className="img-thumbnail"
-                  style={{ maxWidth: "500px" }}
+                  src={url}
+                  alt={`Slide ${index}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
-            )}
-            <Card.Text className="mt-3" style={{ color: "blue" }}>
-              {promocion.descripcionDescuento}
-            </Card.Text>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <strong>Precio Promocional:</strong> ${promocion.precioPromocional}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Fecha Desde:</strong> {fechaDesde}
-                  </Col>
-                  <Col>
-                    <strong>Fecha Hasta:</strong> {fechaHasta}
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    <strong>Hora Desde:</strong> {promocion.horaDesde}
-                  </Col>
-                  <Col>
-                    <strong>Hora Hasta:</strong> {promocion.horaHasta}
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Tipo de Promoción:</strong> {promocion.tipoPromocion}
-              </ListGroup.Item>
-            </ListGroup>
-          </Card.Body>
-        </Card>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+        <Row>
+          <Col xs={12} md={12}>
+            <Card>
+              <Card.Body>
+                <Card.Text>
+                  {promocion.descripcionDescuento}
+                </Card.Text>
+                <Col xs={12} md={12}>
+                  <Card.Text>
+                  <Row>
+                    <Col xs={6}>
+                      <strong>Inicia:</strong> {promocion.horaDesde} hrs
+                    </Col>
+                    <Col xs={6}>
+                      <strong>Finaliza:</strong> {promocion.horaHasta} hrs
+                    </Col>
+                  </Row>
+                  <br />
+                  <strong>Incluye:</strong>
+                  <br />
+                  {detallesPromocion}
+                </Card.Text>
+                </Col>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
@@ -109,6 +79,8 @@ const PromocionModal: React.FC<PromocionModalProps> = ({
       </Modal.Footer>
     </Modal>
   );
+  
+  
 };
 
 export default PromocionModal;

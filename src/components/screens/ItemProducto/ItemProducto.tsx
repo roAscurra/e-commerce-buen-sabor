@@ -27,7 +27,6 @@ const ItemProducto = (args: ProductoParams) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-console.log(args.productoObject)
   return (
     <div className="productos-container">
       <div className="card tarjeta">
@@ -52,9 +51,9 @@ console.log(args.productoObject)
         </div>
 
         <div className="card-body altura-cuerpo">
-          <h5 className="card-title text-truncate">{args.denominacion}</h5>
-          <div className="precio-container">
-            <p className="card-text h2">$ {args.precioVenta}</p>
+        <h5 className="card-title text-truncate" title={args.denominacion}>{args.denominacion}</h5>
+        <div className="precio-container">
+            <p className="card-text h4">$ {args.precioVenta}</p>
           </div>
 
           {args.productoObject.tiempoEstimadoMinutos && (
