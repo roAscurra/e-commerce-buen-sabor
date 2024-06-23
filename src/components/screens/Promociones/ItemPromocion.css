@@ -1,96 +1,39 @@
-/* Estilos para la tarjeta de promoción */
-.custom-card {
-  width: calc(80% - 20px);
-  /* Ancho aproximado para que quepan 3 tarjetas por fila con un margen */
-  margin: 20px;
-  /* Márgenes para separar las tarjetas */
-  border: 1px solid #ccc;
-  /* Borde delgado */
-  border-radius: 10px;
-  /* Bordes redondeados */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  /* Transiciones suaves */
-  margin-bottom: 20px;
-  /* Margen inferior */
-  overflow: hidden;
-  /* Evita que el contenido se desborde */
+.promociones-container {
   display: flex;
-  /* Para que los elementos se ajusten al contenido */
-  flex-direction: column;
-  /* Alineación de contenido */
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 992px) {
-  .custom-card {
-    width: calc(45% - 20px);
-    /* Ancho para que quepan 2 tarjetas por fila en pantallas medianas */
-  }
-}
-
-@media (max-width: 768px) {
-  .custom-card {
-    width: calc(100% - 20px);
-    /* Ancho completo para pantallas pequeñas */
-  }
-}
-
-.custom-card:hover {
-  transform: translateY(-5px);
-  /* Efecto de levantamiento al pasar el ratón */
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  /* Sombra más prominente */
-}
-
-.custom-card .card-img-top {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  object-fit: cover;
-  height: 200px;
+.tarjeta {
   width: 100%;
-  /* Ajuste para cubrir completamente */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.custom-card .card-body {
-  padding: 20px;
-  flex-grow: 1;
-  /* Para que el contenido se ajuste */
+.img-container {
+  height: 300px; /* Establece la altura de la imagen */
+  overflow: hidden;
+  display: flex; /* Usa flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
 }
 
-.custom-card .card-title {
-  font-size: 1.2rem;
-  /* Tamaño del título reducido */
-  margin-bottom: 8px;
-  /* Margen inferior ajustado */
+
+.no-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
 }
 
-.custom-card .card-text {
-  font-size: 1rem;
-  /* Tamaño del texto reducido */
-  color: #666;
-  margin-bottom: 12px;
-  /* Margen inferior ajustado */
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.custom-card .btn-primary {
-  background-color: #60a0e6;
-  border-color: #60a0e6;
-  font-size: 0.9rem;
-  /* Tamaño de fuente para el botón reducido */
-  padding: 8px 16px;
-  /* Espaciado del botón */
-}
-
-.custom-card .btn-primary:hover {
-  background-color: #4076af;
-  /* Cambio de color al pasar el ratón */
-  border-color: #4076af;
-}
-
-.promocion-container{
-  background-color:#d7d7d7;
-}
 .btn-principal{
   background-color: #26486e;
   color: #ffff;
