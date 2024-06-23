@@ -104,6 +104,22 @@ const Promociones = () => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Resetear a la primera página al buscar
   };
+  if(isLoading){
+    return (
+      <>
+        <BaseNavBar />
+        <div
+          style={{ height: "calc(100vh - 56px)" }}
+          className={
+            "d-flex flex-column justify-content-center align-items-center w-100"
+          }
+        >
+          <div className="spinner-border" role="status"></div>
+          <div>Cargando las promociones</div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -131,13 +147,11 @@ const Promociones = () => {
             Ordenar por menor precio
           </Button>
         </div>
-        {isLoading ? (
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Cargando...</span>
-            </div>
+        {currentPromocionesFiltered.length === 0 && searchTerm && (
+          <div className="alert alert-warning" role="alert">
+            Sin resultados para "{searchTerm}"
           </div>
-        ) : (
+        )}
           <div className="row">
             {currentPromociones.map((promocion, index) => (
               <div className="col-sm-4 mb-3" key={index}>
@@ -154,7 +168,6 @@ const Promociones = () => {
               </div>
             ))}
           </div>
-        )}
       </div>
       <nav>
         <ul className="pagination justify-content-center">

@@ -30,7 +30,7 @@ const PromocionModal: React.FC<PromocionModalProps> = ({
   });
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg">
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton className="justify-content-center">
         <Modal.Title style={{ color: "#5d8ec7", textAlign: "center", width: "100%" }}>
           {promocion.denominacion}
