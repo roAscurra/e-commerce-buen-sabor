@@ -40,7 +40,6 @@ const Promociones = () => {
 
   const fetchProductSort = async () => {
     try {
-      setIsLoading(true);
       const page = 0;
       const size = 10;
       const promSorted = await promocionService.getPromocionesSortedByPrecio(url + 'ecommerce', page, size);
@@ -50,9 +49,7 @@ const Promociones = () => {
       setPromociones(allSorted);
       setSelectedPromotionType("");
       setCurrentPage(1);
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
       console.error("Error al obtener promociones ordenadas por precio:", error);
     }
   };
@@ -65,7 +62,6 @@ const Promociones = () => {
     const selectedValue = event.target.value;
     setSelectedPromotionType(selectedValue);
     setCurrentPage(1);
-    setIsLoading(true);
 
     if (selectedValue) {
       try {
