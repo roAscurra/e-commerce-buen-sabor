@@ -4,6 +4,7 @@ import ItemPromocion from "./ItemPromocion";
 import Promocion from "../../../types/Promocion";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
 import { useParams } from "react-router-dom";
+import "./Promociones.css"; // Importar archivo CSS personalizado
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
@@ -31,8 +32,7 @@ const Promociones = () => {
 
   const indexOfLastPromocion = currentPage * promocionesPerPage;
   const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
-  
-  // Filtrar promociones según el término de búsqueda
+
   const filteredPromociones = promociones.filter((promocion) =>
     promocion.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -43,9 +43,8 @@ const Promociones = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Resetear a la primera página al buscar
+    setCurrentPage(1);
   };
-  
 
   if (promociones.length === 0) {
     return (
@@ -53,9 +52,7 @@ const Promociones = () => {
         <BaseNavBar />
         <div
           style={{ height: "calc(100vh - 56px)" }}
-          className={
-            "d-flex flex-column justify-content-center align-items-center w-100"
-          }
+          className="d-flex flex-column justify-content-center align-items-center w-100"
         >
           <div className="spinner-border" role="status"></div>
           <div>Cargando las promociones</div>
@@ -68,13 +65,17 @@ const Promociones = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid promocion-container">
-        <input
-          type="text"
-          placeholder="Buscar promoción..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="form-control mb-3"
-        />
+        <div className="row">
+          <div className="col-lg-8 mx-auto mb-3">
+            <input
+              type="text"
+              placeholder="Buscar promoción..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="form-control mb-3 custom-search-input" // Aplicar clase personalizada
+            />
+          </div>
+        </div>
         <div className="row">
           {currentPromociones.map((promocion: Promocion, index) => (
             <div className="col-sm-4 mb-3" key={index}>
