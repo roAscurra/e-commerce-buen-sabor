@@ -4,13 +4,8 @@ import tablaReducer from "./slices/TablaReducer"; // Renombramos el slice y su r
 import {articuloManufacturadoSlice} from "./slices/ArticuloManufacturado"; // Renombramos el slice y su reducer
 import modalReducer from "./slices/Modal"; // Renombramos el slice y su reducer
 import {categoriaSlice} from "./slices/Categoria";
-import {usuarioSlice} from "./slices/Usuario";
 import { promocionSlice } from './slices/Promocion';
-import { sucursalSlice } from './slices/Sucursal';
-import {empresasSlice} from './slices/Empresa';
 import {articuloInsumoSlice} from "./slices/ArticuloInsumo.ts";
-import {cuponesSlice} from "./slices/Cupones.ts";
-import { unidadMedidaSlice } from "./slices/UnidaMedia.ts";
 
 
 // Configuración de la tienda de Redux
@@ -22,12 +17,7 @@ export const store = configureStore({
     articuloManufacturado: articuloManufacturadoSlice.reducer,
     //articuloManufacturadoDetalle
     categoria: categoriaSlice.reducer,
-    cupones: cuponesSlice.reducer,
-    unidadMedida: unidadMedidaSlice.reducer,
-    usuario: usuarioSlice.reducer,
-    promocion: promocionSlice.reducer,
-    sucursales: sucursalSlice.reducer,
-    empresas: empresasSlice.reducer,
+    promocion: promocionSlice.reducer
   },
 });
 
