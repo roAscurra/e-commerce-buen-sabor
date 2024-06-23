@@ -168,7 +168,7 @@ const Promociones = () => {
           </div>
       </div>
       <nav>
-        <ul className="pagination justify-content-center">
+        <ul className="pagination justify-content-center m-3">
           {[...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage))].map(
             (_, index) => (
               <li

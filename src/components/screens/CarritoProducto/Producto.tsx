@@ -172,7 +172,7 @@ const Producto = () => {
                 ))}
             </div>
             <nav>
-              <ul className="pagination justify-content-center">
+              <ul className="pagination justify-content-center m-3">
                 {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map(
                   (_, index) => (
                     <li
