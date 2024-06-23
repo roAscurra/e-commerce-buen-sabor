@@ -4,13 +4,13 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import Promocion from "../../../types/Promocion";
 import PromocionModal from '../../ui/Modal/PromocionModal';
 import './ItemPromocion.css'; // Archivo CSS para estilos personalizados
+import { Carousel } from 'react-bootstrap';
 
 interface ItemPromocionProps {
-  id: number;
   denominacion: string;
   descripcion: string;
   precioPromocional: number;
-  imagenes: string[];
+  imagenes: any[];
   promocionObject: Promocion;
 }
 
@@ -32,18 +32,34 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
   };
 
   return (
-    
-    <div className="card custom-card">
-      {imagenes.length > 0 && (
-        <img src={imagenes[0]} className="card-img-top" alt={denominacion} />
-      )}
-      <div className="card-body">
-        <h5 className="card-title">{denominacion}</h5>
-        <p className="card-text">{descripcion}</p>
-        <p className="card-text"><strong>${precioPromocional}</strong></p>
-        <button className="btn btn-principal" onClick={handleViewDetail}>
-          <FontAwesomeIcon icon={faEye} /> Ver detalle
-        </button>
+    <div className="productos-container">
+      <div className="card tarjeta">
+        <div className="img-container">
+          {imagenes.length > 0 && (
+            <Carousel>
+              {imagenes.map((imagen, index) => (
+                <Carousel.Item key={index}>
+                  <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
+                    <img
+                      src={imagen.url}
+                      alt={`Slide ${index}`}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
+        </div>
+
+        <div className="card-body altura-cuerpo">
+          <h5 className="card-title">{denominacion}</h5>
+          <p className="card-text">{descripcion}</p>
+          <p className="card-text"><strong>${precioPromocional}</strong></p>
+          <button className="btn btn-principal" onClick={handleViewDetail}>
+            <FontAwesomeIcon icon={faEye} /> Ver detalle
+          </button>
+        </div>
       </div>
 
       <PromocionModal show={showModal} handleClose={handleCloseModal} promocion={promocionObject} />

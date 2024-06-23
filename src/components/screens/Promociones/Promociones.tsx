@@ -13,7 +13,7 @@ const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
   const [allPromociones, setAllPromociones] = useState<Promocion[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [promocionesPerPage] = useState(3); // Número de tarjetas por página
+  const [promocionesPerPage] = useState(4); // Número de tarjetas por página
   const [searchTerm, setSearchTerm] = useState("");
   const promocionService = new PromocionService();
   const [selectedPromotionType, setSelectedPromotionType] = useState<string>("");
@@ -154,15 +154,14 @@ const Promociones = () => {
         )}
           <div className="row">
             {currentPromociones.map((promocion, index) => (
-              <div className="col-sm-4 mb-3" key={index}>
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
                 <div className="promocion-card">
                   <ItemPromocion
-                    id={promocion.id}
                     denominacion={promocion.denominacion}
                     descripcion={promocion.descripcionDescuento}
                     precioPromocional={promocion.precioPromocional}
                     promocionObject={promocion}
-                    imagenes={promocion.imagenes.map((imagen) => imagen.url)}
+                    imagenes={promocion.imagenes}
                   />
                 </div>
               </div>
