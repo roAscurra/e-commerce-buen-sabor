@@ -1,23 +1,14 @@
-<<<<<<< HEAD
-
-input.custom-search-input {
-    width: 100%;
-    max-width: 1400px; /* Ajusta el máximo ancho según tus necesidades */
-    margin: 0 auto;
-  }
-  
-=======
 .promocion-container {
     padding: 20px;
     background-color: #d7d7d7;
 }
 
-.d-flex {
+.filter-container {
     display: flex;
-}
-
-.align-items-center {
     align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .mt-3 {
@@ -28,10 +19,6 @@ input.custom-search-input {
     margin-bottom: 2rem;
 }
 
-.justify-content-center {
-    justify-content: center;
-}
-
 .ordenar-btn {
     height: 45px;
     background-color: #26486e !important;
@@ -39,7 +26,10 @@ input.custom-search-input {
     color: white !important;
     display: flex;
     align-items: center;
-    margin-left: 10px;
+    justify-content: center;
+    min-width: 50px; /* Ajuste del tamaño */
+    max-width: 250px; /* Ajuste del tamaño */
+    flex-grow: 1;
 }
 
 .ordenar-btn:hover {
@@ -49,6 +39,30 @@ input.custom-search-input {
 }
 
 .search-input {
-    flex: 0 0 400px;
+    flex: 2;
+    min-width: 400px; /* Ajuste del tamaño */
+    max-width: 600px; /* Ajuste del tamaño */
 }
->>>>>>> main
+
+.filter-select {
+    min-width: 120px; /* Ajuste del tamaño */
+    max-width: 350px; /* Ajuste del tamaño */
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-input, .filter-select, .ordenar-btn {
+        flex: 1;
+        min-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .ordenar-btn {
+        margin-left: 0;
+    }
+}

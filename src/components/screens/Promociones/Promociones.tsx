@@ -3,16 +3,11 @@ import PromocionService from "../../../services/PromocionService";
 import ItemPromocion from "./ItemPromocion";
 import Promocion from "../../../types/Promocion";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
-<<<<<<< HEAD
-import { useParams } from "react-router-dom";
-import "./Promociones.css"; // Importar archivo CSS personalizado
-=======
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
 import "./Promociones.css";
 import { TipoPromocion } from "../../../types/enums/TipoPromocion";
->>>>>>> main
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
@@ -100,13 +95,6 @@ const Promociones = () => {
 
   const indexOfLastPromocion = currentPage * promocionesPerPage;
   const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
-<<<<<<< HEAD
-
-  const filteredPromociones = promociones.filter((promocion) =>
-    promocion.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-=======
->>>>>>> main
 
   const currentPromociones = currentPromocionesFiltered.slice(indexOfFirstPromocion, indexOfLastPromocion);
 
@@ -114,81 +102,34 @@ const Promociones = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1);
+    setCurrentPage(1); // Resetear a la primera página al buscar
   };
-<<<<<<< HEAD
-
-  if (promociones.length === 0) {
-    return (
-      <>
-        <BaseNavBar />
-        <div
-          style={{ height: "calc(100vh - 56px)" }}
-          className="d-flex flex-column justify-content-center align-items-center w-100"
-        >
-          <div className="spinner-border" role="status"></div>
-          <div>Cargando las promociones</div>
-        </div>
-      </>
-    );
-  }
-=======
->>>>>>> main
 
   return (
     <>
       <BaseNavBar />
       <div className="container-fluid promocion-container">
-<<<<<<< HEAD
-        <div className="row">
-          <div className="col-lg-8 mx-auto mb-3">
-            <input
-              type="text"
-              placeholder="Buscar promoción..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="form-control mb-3 custom-search-input" // Aplicar clase personalizada
-            />
-          </div>
-        </div>
-        <div className="row">
-          {currentPromociones.map((promocion: Promocion, index) => (
-            <div className="col-sm-4 mb-3" key={index}>
-              <div className="promocion-card">
-                <ItemPromocion
-                  id={promocion.id}
-                  denominacion={promocion.denominacion}
-                  descripcion={promocion.descripcionDescuento}
-                  precioPromocional={promocion.precioPromocional}
-                  promocionObject={promocion}
-                  imagenes={promocion.imagenes.map(imagen => imagen.url)}
-                />
-              </div>
-            </div>
-          ))}
-=======
-        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
-          <input
-            type="text"
-            placeholder="Buscar promoción..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="form-control search-input me-3"
-          />
+        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center filter-container">
           <select
             value={selectedPromotionType}
             onChange={handlePromotionTypeFilter}
-            className="form-select me-3"
+            className="form-select filter-select"
           >
             <option value="">Todas las promociones</option>
             <option value={TipoPromocion.HAPPY_HOUR}>Happy Hour</option>
             <option value={TipoPromocion.PROMOCION}>Promoción</option>
           </select>
+          <input
+            type="text"
+            placeholder="Buscar promoción..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="form-control search-input"
+          />
           <Button className="ordenar-btn" onClick={handleSortByPrice}>
             <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
             Ordenar por menor precio
           </Button>
->>>>>>> main
         </div>
         {isLoading ? (
           <div className="d-flex justify-content-center">

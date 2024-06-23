@@ -14,171 +14,199 @@ const categoriaService = new CategoriaService();
 const articuloService = new ArticuloDtoService();
 
 const Producto = () => {
-  const [productos, setProductos] = useState<ArticuloDto[]>([]);
-  const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
-  const [categorias, setCategorias] = useState<Categoria[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [noProductsMessage, setNoProductsMessage] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productosPerPage] = useState(4);
-  const [searchTerm, setSearchTerm] = useState("");
-  const url = import.meta.env.VITE_API_URL;
+    const [productos, setProductos] = useState<ArticuloDto[]>([]);
+    const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
+    const [categorias, setCategorias] = useState<Categoria[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+    const [noProductsMessage, setNoProductsMessage] = useState<string>("");
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const productosPerPage: number = 4;
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const url: string = import.meta.env.VITE_API_URL || ""; // Reemplazar con tu URL de API
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const productData = await articuloService.getAll(url + 'ecommerce');
-      setProductos(productData);
-      setTodosLosProductos(productData);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const productData = await articuloService.getAll(url + "ecommerce");
+                setProductos(productData);
+                setTodosLosProductos(productData);
 
-      const categories = await categoriaService.getAll(url + "categoria");
-      setCategorias(categories);
+                const categories = await categoriaService.getAll(url + "categoria");
+                setCategorias(categories);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setNoProductsMessage("Error al cargar los productos.");
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+        setCurrentPage(1); // Resetear a la primera página al buscar
     };
 
-    fetchData();
-  }, []);
+    useEffect(() => {
+        const fetchFilteredProducts = async () => {
+            try {
+                if (selectedCategory !== null) {
+                    const page = 0; // Página inicial para la paginación
+                    const size = 10; // Tamaño de la página
+                    const result = await articuloService.getArticulosByCategoria(
+                        url + "ecommerce",
+                        selectedCategory,
+                        page,
+                        size
+                    );
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1); // Resetear a la primera página al buscar
-  };
+                    const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
 
-  useEffect(() => {
-    const fetchFilteredProducts = async () => {
-      if (selectedCategory !== null) {
-        const page = 0;
-        const size = 10;
-        const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', selectedCategory, page, size);
+                    if (allProducts.length === 0) {
+                        setProductos(todosLosProductos);
+                        setNoProductsMessage("No hay productos para esta categoría.");
+                    } else {
+                        setNoProductsMessage("");
+                        setProductos(allProducts);
+                    }
+                } else {
+                    setNoProductsMessage("");
+                    setProductos(todosLosProductos);
+                }
+            } catch (error) {
+                console.error("Error fetching filtered products:", error);
+                setNoProductsMessage("Error al filtrar los productos.");
+            }
+        };
 
-        const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
+        fetchFilteredProducts();
+    }, [selectedCategory, todosLosProductos, url]);
 
-        if (allProducts.length === 0) {
-          setProductos(todosLosProductos);
-          setNoProductsMessage("No hay productos para esta categoría.");
-        } else {
-          setNoProductsMessage("");
-          setProductos(allProducts);
+    const handleCategoryFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = event.target.value;
+        setSelectedCategory(selectedValue ? parseInt(selectedValue) : null);
+        setCurrentPage(1); // Resetear a la primera página al cambiar de categoría
+    };
+
+    const fetchProductSort = async () => {
+        try {
+            const page = 0; // Página inicial para la paginación
+            const size = 10; // Tamaño de la página
+            const productSorted = await articuloService.getArticulosSortedByPrecio(
+                url + "ecommerce",
+                page,
+                size
+            );
+
+            const allSorted = productSorted.content.reduce((acc, page) => acc.concat(page), []);
+            setProductos(allSorted);
+        } catch (error) {
+            console.error("Error sorting products by price:", error);
+            setNoProductsMessage("Error al ordenar los productos por precio.");
         }
-      } else {
-        setNoProductsMessage("");
-        setProductos(todosLosProductos);
-      }
     };
 
-    fetchFilteredProducts();
-  }, [selectedCategory]);
+    const handleSortByPrice = () => {
+        fetchProductSort();
+    };
 
-  const handleCategoryFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    setSelectedCategory(selectedValue ? parseInt(selectedValue) : null);
-    setCurrentPage(1); // Resetear a la primera página al cambiar de categoría
-  };
-
-  const fetchProductSort = async () => {
-    const page = 0;
-    const size = 10;
-    const productSorted = await articuloService.getArticulosSortedByPrecio(url + 'ecommerce', page, size);
-
-    const allSorted = productSorted.content.reduce((acc, page) => acc.concat(page), []);
-
-    setProductos(allSorted);
-  };
-
-  const handleSortByPrice = () => {
-    fetchProductSort();
-  };
-
-  // Filtrar productos según la categoría y el término de búsqueda
-  const filteredProductos = productos.filter((producto) =>
-    producto.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Calcular los índices para la paginación
-  const indexOfLastProducto = currentPage * productosPerPage;
-  const indexOfFirstProducto = indexOfLastProducto - productosPerPage;
-  const currentProductos = filteredProductos.slice(indexOfFirstProducto, indexOfLastProducto);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  if (productos.length === 0 && noProductsMessage) {
-    return (
-      <>
-        <BaseNavBar />
-        <div
-          style={{ height: "calc(100vh - 56px)" }}
-          className={
-            "d-flex flex-column justify-content-center align-items-center w-100"
-          }
-        >
-          <div>{noProductsMessage}</div>
-        </div>
-      </>
+    // Filtrar productos según la categoría y el término de búsqueda
+    const filteredProductos = productos.filter((producto) =>
+        producto.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }
 
-  return (
-    <>
-      <BaseNavBar />
-      <div className="container-fluid producto-container">
-        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
-          <input
-            type="text"
-            placeholder="Buscar producto..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="form-control search-input me-3"
-          />
-          <select
-            className="form-control custom-select filtro-categoria"
-            onChange={handleCategoryFilter}
-          >
-            <option value="">Todas las categorías</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.denominacion}
-              </option>
-            ))}
-          </select>
-          <Button
-            className="ordenar-btn ms-3"
-            onClick={handleSortByPrice}
-          >
-            <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
-            Ordenar por menor precio
-          </Button>
-        </div>
-        {noProductsMessage && (
-          <div className="alert alert-warning" role="alert">
-            {noProductsMessage}
-          </div>
-        )}
-        <div className="row">
-          {currentProductos.map((producto, index) => (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
-              <div className="producto-card">
-                <ItemProducto
-                  id={producto.id}
-                  denominacion={producto.denominacion}
-                  precioVenta={producto.precioVenta}
-                  productoObject={producto}
-                />
-              </div>
+    // Calcular los índices para la paginación
+    const indexOfLastProducto = currentPage * productosPerPage;
+    const indexOfFirstProducto = indexOfLastProducto - productosPerPage;
+    const currentProductos = filteredProductos.slice(indexOfFirstProducto, indexOfLastProducto);
+
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+    if (productos.length === 0 && noProductsMessage) {
+        return (
+            <>
+                <BaseNavBar />
+                <div
+                    style={{ height: "calc(100vh - 56px)" }}
+                    className="d-flex flex-column justify-content-center align-items-center w-100"
+                >
+                    <div>{noProductsMessage}</div>
+                </div>
+            </>
+        );
+    }
+
+    return (
+        <>
+            <BaseNavBar />
+            <div className="container-fluid producto-container">
+                <div className="filtros-container">
+                    <select
+                        className="form-control custom-select filtro-categoria"
+                        onChange={handleCategoryFilter}
+                    >
+                        <option value="">Todas las categorías</option>
+                        {categorias.map((categoria) => (
+                            <option key={categoria.id} value={categoria.id}>
+                                {categoria.denominacion}
+                            </option>
+                        ))}
+                    </select>
+                    <input
+                        type="text"
+                        placeholder="Buscar producto..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        className="form-control search-input"
+                    />
+                    <Button className="ordenar-btn" onClick={handleSortByPrice}>
+                        <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
+                        Ordenar por menor precio
+                    </Button>
+                </div>
+                {noProductsMessage && (
+                    <div className="alert alert-warning" role="alert">
+                        {noProductsMessage}
+                    </div>
+                )}
+                <div className="row">
+                    {currentProductos.map((producto, index) => (
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
+                            <div className="producto-card">
+                                <ItemProducto
+                                    id={producto.id}
+                                    denominacion={producto.denominacion}
+                                    precioVenta={producto.precioVenta}
+                                    productoObject={producto}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <nav>
+                    <ul className="pagination justify-content-center">
+                        {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map(
+                            (_, index) => (
+                                <li
+                                    key={index}
+                                    className={`page-item ${
+                                        index + 1 === currentPage ? "active" : ""
+                                    }`}
+                                >
+                                    <button
+                                        onClick={() => paginate(index + 1)}
+                                        className="page-link"
+                                    >
+                                        {index + 1}
+                                    </button>
+                                </li>
+                            )
+                        )}
+                    </ul>
+                </nav>
             </div>
-          ))}
-        </div>
-        <nav>
-          <ul className="pagination justify-content-center">
-            {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map((_, index) => (
-              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
-                <button onClick={() => paginate(index + 1)} className="page-link">
-                  {index + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </>
-  );
+        </>
+    );
 };
 
 export default Producto;
