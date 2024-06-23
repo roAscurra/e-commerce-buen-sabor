@@ -15,6 +15,7 @@ const articuloService = new ArticuloDtoService();
 
 const Producto = () => {
   const [productos, setProductos] = useState<ArticuloDto[]>([]);
+  const [loading, setLoading] = useState(true); // Estado para indicar si los productos se están cargando
   const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -26,12 +27,15 @@ const Producto = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Indicar que los productos se están cargando
       const productData = await articuloService.getAll(url + 'ecommerce');
       setProductos(productData);
       setTodosLosProductos(productData);
 
       const categories = await categoriaService.getAll(url + "categoria");
       setCategorias(categories);
+      
+      setLoading(false); // Indicar que la carga ha terminado
     };
 
     fetchData();
@@ -52,7 +56,7 @@ const Producto = () => {
         const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
 
         if (allProducts.length === 0) {
-          setProductos(todosLosProductos);
+          setProductos([]);
           setNoProductsMessage("No hay productos para esta categoría.");
         } else {
           setNoProductsMessage("");
@@ -65,7 +69,7 @@ const Producto = () => {
     };
 
     fetchFilteredProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, todosLosProductos]);
 
   const handleCategoryFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
@@ -99,7 +103,7 @@ const Producto = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  if (productos.length === 0 && noProductsMessage) {
+  if (loading) {
     return (
       <>
         <BaseNavBar />
@@ -109,7 +113,8 @@ const Producto = () => {
             "d-flex flex-column justify-content-center align-items-center w-100"
           }
         >
-          <div>{noProductsMessage}</div>
+          <div className="spinner-border" role="status"></div>
+          <div>Cargando los productos</div>
         </div>
       </>
     );
@@ -149,6 +154,11 @@ const Producto = () => {
         {noProductsMessage && (
           <div className="alert alert-warning" role="alert">
             {noProductsMessage}
+          </div>
+        )}
+        {(filteredProductos.length === 0) && searchTerm && (
+          <div className="alert alert-warning" role="alert">
+            Sin resultados
           </div>
         )}
         <div className="row">
