@@ -20,14 +20,14 @@ const Producto = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [noProductsMessage, setNoProductsMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productosPerPage] = useState(4); 
+  const [productosPerPage] = useState(4);
   const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       const productData = await articuloService.getAll(url + 'ecommerce');
       setProductos(productData);
-      setTodosLosProductos(productData); 
+      setTodosLosProductos(productData);
 
       const categories = await categoriaService.getAll(url + "categoria");
       setCategorias(categories);
