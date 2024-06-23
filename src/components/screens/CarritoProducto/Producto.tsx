@@ -21,6 +21,7 @@ const Producto = () => {
   const [noProductsMessage, setNoProductsMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productosPerPage] = useState(4);
+  const [searchTerm, setSearchTerm] = useState("");
   const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -36,6 +37,11 @@ const Producto = () => {
     fetchData();
   }, []);
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Resetear a la primera página al buscar
+  };
+
   useEffect(() => {
     const fetchFilteredProducts = async () => {
       if (selectedCategory !== null) {
@@ -47,14 +53,14 @@ const Producto = () => {
 
         if (allProducts.length === 0) {
           setProductos(todosLosProductos);
-          setNoProductsMessage("No hay productos para esta categoría.");  // Si no hay productos en la categoría, mostramos todos los productos
+          setNoProductsMessage("No hay productos para esta categoría.");
         } else {
           setNoProductsMessage("");
           setProductos(allProducts);
         }
       } else {
         setNoProductsMessage("");
-        setProductos(todosLosProductos);  // Si la categoría es "Todas las categorías", mostramos todos los productos
+        setProductos(todosLosProductos);
       }
     };
 
@@ -64,6 +70,7 @@ const Producto = () => {
   const handleCategoryFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     setSelectedCategory(selectedValue ? parseInt(selectedValue) : null);
+    setCurrentPage(1); // Resetear a la primera página al cambiar de categoría
   };
 
   const fetchProductSort = async () => {
@@ -80,14 +87,19 @@ const Producto = () => {
     fetchProductSort();
   };
 
+  // Filtrar productos según la categoría y el término de búsqueda
+  const filteredProductos = productos.filter((producto) =>
+    producto.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Calcular los índices para la paginación
   const indexOfLastProducto = currentPage * productosPerPage;
   const indexOfFirstProducto = indexOfLastProducto - productosPerPage;
-  const currentProductos = productos.slice(indexOfFirstProducto, indexOfLastProducto);
+  const currentProductos = filteredProductos.slice(indexOfFirstProducto, indexOfLastProducto);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  if (productos.length === 0) {
+  if (productos.length === 0 && noProductsMessage) {
     return (
       <>
         <BaseNavBar />
@@ -97,8 +109,7 @@ const Producto = () => {
             "d-flex flex-column justify-content-center align-items-center w-100"
           }
         >
-          <div className="spinner-border" role="status"></div>
-          <div>Cargando los productos</div>
+          <div>{noProductsMessage}</div>
         </div>
       </>
     );
@@ -109,6 +120,13 @@ const Producto = () => {
       <BaseNavBar />
       <div className="container-fluid producto-container">
         <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="form-control search-input me-3"
+          />
           <select
             className="form-control custom-select filtro-categoria"
             onChange={handleCategoryFilter}
@@ -149,7 +167,7 @@ const Producto = () => {
         </div>
         <nav>
           <ul className="pagination justify-content-center">
-            {[...Array(Math.ceil(productos.length / productosPerPage))].map((_, index) => (
+            {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map((_, index) => (
               <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
                 <button onClick={() => paginate(index + 1)} className="page-link">
                   {index + 1}
