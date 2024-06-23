@@ -76,3 +76,17 @@
         margin-bottom: 10px; /* Espaciado inferior */
     }
 }
+/* Estilo para elementos activos */
+.principal-active .page-link {
+    background-color: #26486e; /* Color de fondo para elementos activos */
+    color: #ffffff; /* Color de texto para elementos activos */
+  }
+  
+  /* Estilo para elementos inactivos */
+  .principal-inactive .page-link {
+    background-color: #ffffff; /* Color de fondo para elementos inactivos */
+    color: #26486e; /* Color de texto para elementos inactivos */
+  }
+  
+  
+  

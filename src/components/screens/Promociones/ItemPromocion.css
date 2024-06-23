@@ -91,3 +91,11 @@
 .promocion-container{
   background-color:#d7d7d7;
 }
+.btn-principal{
+  background-color: #26486e;
+  color: #ffff;
+}
+.btn-principal:hover {
+  background-color: #1a3651; /* Color más oscuro para el hover */
+  color: #ffff;
+}

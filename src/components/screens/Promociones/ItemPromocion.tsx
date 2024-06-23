@@ -41,7 +41,7 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
         <h5 className="card-title">{denominacion}</h5>
         <p className="card-text">{descripcion}</p>
         <p className="card-text"><strong>${precioPromocional}</strong></p>
-        <button className="btn btn-primary" onClick={handleViewDetail}>
+        <button className="btn btn-principal" onClick={handleViewDetail}>
           <FontAwesomeIcon icon={faEye} /> Ver detalle
         </button>
       </div>
