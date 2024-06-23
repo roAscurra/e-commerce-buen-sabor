@@ -1,4 +1,4 @@
-.producto-container {
+.promocion-container {
     padding: 20px;
     background-color: #d7d7d7;
 }
@@ -23,13 +23,6 @@
     justify-content: center;
 }
 
-.filtro-categoria {
-    height: 40px;
-    width: 500px;
-    font-size: 16px;
-    padding: 5px 10px;
-}
-
 .ordenar-btn {
     height: 45px;
     background-color: #26486e !important;
@@ -44,26 +37,6 @@
     background-color: #132f4f !important;
     border-color: #132f4f !important;
     color: white !important;
-}
-
-.producto-card {
-    padding: 10px;
-    border: 0px solid #ddd;
-    border-radius: 8px;
-    transition: transform 0.2s;
-}
-
-.producto-card:hover {
-    transform: scale(1.05);
-}
-
-@media (max-width: 600px) {
-
-    .filtro-categoria,
-    .ordenar-btn {
-        width: 100%;
-        margin-bottom: 20px;
-    }
 }
 
 .search-input {

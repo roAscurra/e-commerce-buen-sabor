@@ -3,6 +3,10 @@ import PromocionService from "../../../services/PromocionService";
 import ItemPromocion from "./ItemPromocion";
 import Promocion from "../../../types/Promocion";
 import { BaseNavBar } from "../../ui/common/BaseNavBar";
+import { Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
+import './Promociones.css';
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
@@ -24,6 +28,20 @@ const Promociones = () => {
     };
     fetchData();
   }, []);
+
+  const fetchProductSort = async () => {
+    const page = 0;
+    const size = 10;
+    const promSorted = await promocionService.getPromocionesSortedByPrecio(url + 'ecommerce', page, size);
+
+    const allSorted = promSorted.content.reduce((acc, page) => acc.concat(page), []);
+
+    setPromociones(allSorted);
+  };
+
+  const handleSortByPrice = () => {
+    fetchProductSort();
+  };
 
   const indexOfLastPromocion = currentPage * promocionesPerPage;
   const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
@@ -64,15 +82,21 @@ const Promociones = () => {
     <>
       <BaseNavBar />
       <div className="container-fluid promocion-container">
-        <input
-          type="text"
-          placeholder="Buscar promoción..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="form-control mb-3"
-        />
+        <div className="d-flex align-items-center mt-3 mb-3 justify-content-center">
+          <input
+            type="text"
+            placeholder="Buscar promoción..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="form-control search-input me-3"
+          />
+          <Button className="ordenar-btn" onClick={handleSortByPrice}>
+            <FontAwesomeIcon icon={faArrowUpShortWide} className="me-2" />
+            Ordenar por menor precio
+          </Button>
+        </div>
         <div className="row">
-          {currentPromociones.map((promocion: Promocion, index) => (
+          {currentPromociones.map((promocion, index) => (
             <div className="col-sm-4 mb-3" key={index}>
               <div className="promocion-card">
                 <ItemPromocion
@@ -81,7 +105,7 @@ const Promociones = () => {
                   descripcion={promocion.descripcionDescuento}
                   precioPromocional={promocion.precioPromocional}
                   promocionObject={promocion}
-                  imagenes={promocion.imagenes.map(imagen => imagen.url)}
+                  imagenes={promocion.imagenes.map((imagen) => imagen.url)}
                 />
               </div>
             </div>
@@ -90,9 +114,21 @@ const Promociones = () => {
       </div>
       <nav>
         <ul className="pagination justify-content-center">
-          {[...Array(Math.ceil(filteredPromociones.length / promocionesPerPage))].map((_, index) => (
-            <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
-              <button onClick={() => paginate(index + 1)} className="page-link">
+          {[
+            ...Array(
+              Math.ceil(filteredPromociones.length / promocionesPerPage)
+            ),
+          ].map((_, index) => (
+            <li
+              key={index}
+              className={`page-item ${
+                index + 1 === currentPage ? "active" : ""
+              }`}
+            >
+              <button
+                onClick={() => paginate(index + 1)}
+                className="page-link"
+              >
                 {index + 1}
               </button>
             </li>

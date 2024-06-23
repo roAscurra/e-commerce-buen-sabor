@@ -1,4 +1,30 @@
 import Promocion from "../types/Promocion";
 import BackendClient from "./BackendClient";
 
-export default class PromocionService extends BackendClient<Promocion> {}
+interface Page<T> {
+    content: T[];
+    totalPages: number;
+    totalElements: number;
+    number: number;
+    size: number;
+}
+
+export default class PromocionService extends BackendClient<Promocion> {
+    // Obtener Promociones ordenados por precio
+    public async getPromocionesSortedByPrecio(url: string, page: number, size: number): Promise<Page<Promocion[]>> {
+        try {
+            const path = `${url}/promociones/sortedByPrecio?page=${page}&size=${size}`;
+            const response = await fetch(path, { method: "GET" });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("Error al obtener artículos ordenados por precio:", error);
+            throw error;
+        }
+    }
+}
