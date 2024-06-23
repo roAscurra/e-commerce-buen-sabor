@@ -81,7 +81,6 @@ const Promociones = () => {
       }
     } else {
       setFilteredPromocionesType([]); // Si no hay tipo seleccionado, vaciar las promociones filtradas
-      setIsLoading(false);
     }
   };
 
@@ -104,7 +103,7 @@ const Promociones = () => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Resetear a la primera página al buscar
   };
-  if(isLoading){
+  if(isLoading && currentPromociones.length === 0){
     return (
       <>
         <BaseNavBar />
