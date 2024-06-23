@@ -16,15 +16,18 @@ const articuloService = new ArticuloDtoService();
 const Producto = () => {
   const [productos, setProductos] = useState<ArticuloDto[]>([]);
   const [todosLosProductos, setTodosLosProductos] = useState<ArticuloDto[]>([]);
-  const url = import.meta.env.VITE_API_URL;
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [noProductsMessage, setNoProductsMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productosPerPage] = useState(4); 
+  const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       const productData = await articuloService.getAll(url + 'ecommerce');
       setProductos(productData);
-      setTodosLosProductos(productData); // Guardamos todos los productos aquí
+      setTodosLosProductos(productData); 
 
       const categories = await categoriaService.getAll(url + "categoria");
       setCategorias(categories);
@@ -43,11 +46,14 @@ const Producto = () => {
         const allProducts = result.content.reduce((acc, page) => acc.concat(page), []);
 
         if (allProducts.length === 0) {
-          setProductos(todosLosProductos);  // Si no hay productos en la categoría, mostramos todos los productos
+          setProductos(todosLosProductos);
+          setNoProductsMessage("No hay productos para esta categoría.");  // Si no hay productos en la categoría, mostramos todos los productos
         } else {
+          setNoProductsMessage("");
           setProductos(allProducts);
         }
       } else {
+        setNoProductsMessage("");
         setProductos(todosLosProductos);  // Si la categoría es "Todas las categorías", mostramos todos los productos
       }
     };
@@ -73,6 +79,13 @@ const Producto = () => {
   const handleSortByPrice = () => {
     fetchProductSort();
   };
+
+  // Calcular los índices para la paginación
+  const indexOfLastProducto = currentPage * productosPerPage;
+  const indexOfFirstProducto = indexOfLastProducto - productosPerPage;
+  const currentProductos = productos.slice(indexOfFirstProducto, indexOfLastProducto);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   if (productos.length === 0) {
     return (
@@ -115,8 +128,13 @@ const Producto = () => {
             Ordenar por menor precio
           </Button>
         </div>
+        {noProductsMessage && (
+          <div className="alert alert-warning" role="alert">
+            {noProductsMessage}
+          </div>
+        )}
         <div className="row">
-          {productos.map((producto, index) => (
+          {currentProductos.map((producto, index) => (
             <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
@@ -129,10 +147,20 @@ const Producto = () => {
             </div>
           ))}
         </div>
+        <nav>
+          <ul className="pagination justify-content-center">
+            {[...Array(Math.ceil(productos.length / productosPerPage))].map((_, index) => (
+              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+                <button onClick={() => paginate(index + 1)} className="page-link">
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </>
   );
-  
 };
 
 export default Producto;
