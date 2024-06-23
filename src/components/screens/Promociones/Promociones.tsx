@@ -90,9 +90,16 @@ const Promociones = () => {
   const indexOfFirstPromocion = indexOfLastPromocion - promocionesPerPage;
 
   const currentPromociones = currentPromocionesFiltered.slice(indexOfFirstPromocion, indexOfLastPromocion);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Desplazamiento suave
+    });
+  };
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    scrollToTop(); 
+  };
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Resetear a la primera página al buscar

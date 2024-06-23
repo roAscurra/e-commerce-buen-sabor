@@ -98,9 +98,16 @@ const Producto = () => {
   const indexOfLastProducto = currentPage * productosPerPage;
   const indexOfFirstProducto = indexOfLastProducto - productosPerPage;
   const currentProductos = filteredProductos.slice(indexOfFirstProducto, indexOfLastProducto);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Desplazamiento suave
+    });
+  };
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    scrollToTop(); 
+  };
   if (loading) {
     return (
       <>
