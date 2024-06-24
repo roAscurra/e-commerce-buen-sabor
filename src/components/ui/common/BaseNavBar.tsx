@@ -26,7 +26,7 @@ export const BaseNavBar = () => {
               <a
                 className="nav-link active text-white"
                 aria-current="page"
-                href="/carrito"
+                href="/productos"
               >
                 <FontAwesomeIcon icon={faShoppingCart} className="icon" /> {/* Icono para 'Productos' */}
                 Productos
