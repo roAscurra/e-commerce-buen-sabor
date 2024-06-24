@@ -38,11 +38,6 @@
     color: white !important;
 }
 
-.search-input {
-    flex: 2;
-    min-width: 400px; /* Ajuste del tamaño */
-    max-width: 600px; /* Ajuste del tamaño */
-}
 
 .filter-select {
     min-width: 120px; /* Ajuste del tamaño */
