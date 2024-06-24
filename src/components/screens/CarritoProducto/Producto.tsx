@@ -22,6 +22,8 @@ const Producto = () => {
   const [productosPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState("");
   const url = import.meta.env.VITE_API_URL;
+  const [orderByPrecio, setOrderByPrecio] = useState(false);
+  const [originalProductos, setOriginalProductos] = useState<ArticuloDto[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +31,7 @@ const Producto = () => {
       const productData = await articuloService.getAll(url + 'ecommerce');
       setProductos(productData);
       setTodosLosProductos(productData);
+      setOriginalProductos(productData);
 
       const categories = await categoriaService.getAll(url + "categoria");
       setCategorias(categories);
@@ -86,6 +89,7 @@ const Producto = () => {
   };
 
   const handleSortByPrice = () => {
+    setOrderByPrecio(true);
     fetchProductSort();
   };
 
@@ -126,7 +130,10 @@ const Producto = () => {
   }
   const handleClearFilters = () => {
     setSelectedCategory(null);
+    setOrderByPrecio(false);
     setSearchTerm("");
+    setProductos(originalProductos);
+    setTodosLosProductos(originalProductos);
   };
   return (
     <>
@@ -136,6 +143,7 @@ const Producto = () => {
           selectedOption={selectedCategory}
           handleOptionFilter={handleCategoryFilter}
           searchTerm={searchTerm}
+          orderByPrecio={orderByPrecio}
           handleSearchChange={handleSearchChange}
           handleSortByPrice={handleSortByPrice}
           handleClearFilters={handleClearFilters}
