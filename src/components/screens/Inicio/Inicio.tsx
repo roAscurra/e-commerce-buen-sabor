@@ -11,7 +11,6 @@ export const Inicio = () => {
   const url = import.meta.env.VITE_API_URL;
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const categoriaService = new CategoriaService();
-  const [loading, setLoading] = useState(true);
   localStorage.removeItem('categoriaSeleccionada');
 
   useEffect(() => {
@@ -19,7 +18,6 @@ export const Inicio = () => {
       try {
         const categories = await categoriaService.getAll(url + "categoria");
         setCategorias(categories);
-        setLoading(true);
       } catch (error) {
         console.error('Error fetching categorias:', error);
       } finally {
@@ -30,20 +28,9 @@ export const Inicio = () => {
     fetchData();
   }, []);
   const handleClickCategoria = (categoriaId: number) => {
-    setLoading(false);
     localStorage.setItem('categoriaSeleccionada', categoriaId.toString());
     window.location.href = '/carrito';
   };
-  if (loading && categorias.length === 0) {
-    return (
-      <>
-        <div style={{ height: 'calc(100vh - 56px)' }} className={'d-flex flex-column justify-content-center align-items-center w-100'}>
-          <div className="spinner-border" role="status"></div>
-          <div>Cargando...</div>
-        </div>
-      </>
-    );
-  }
   return (
     <Container fluid className="inicio-container">
       <Container className="contenido">
