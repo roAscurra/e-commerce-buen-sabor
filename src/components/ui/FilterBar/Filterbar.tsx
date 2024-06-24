@@ -40,7 +40,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
     <div className="col-lg-4 col-md-5 col-sm-10 col-10 mb-3 mb-sm-0">
         <div className="d-flex h-100 align-items-center">
         <select
-            value={selectedOption}
+            value={selectedOption || ''}
             onChange={handleOptionFilter}
             className="form-select w-100"
             style={{ height: "100%" }}

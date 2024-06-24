@@ -81,3 +81,9 @@
   background-color: #5192d8 !important; /* Cambio de color de fondo al pasar el mouse */
   color: #ffffff !important; /* Cambio de color del texto al pasar el mouse */
 }
+.card-title {
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
