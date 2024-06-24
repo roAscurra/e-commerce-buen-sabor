@@ -69,9 +69,9 @@ const FilterBar: React.FC<FilterBarProps> = ({
         </div>
         <div className="col-lg-2 col-md-3 col-sm-12 col-12 d-flex align-items-center justify-content-center mb-3 mb-sm-0">
             <Button
-            className="btn ordenar-btn"
+            className="btn btn-clear-filter"
             onClick={clearFilters}
-            style={{height: "100%", width: "100%", margin: 0 }}
+            style={{ backgroundColor: "#6093ce", color: "white", height: "100%", width: "100%", margin: 0 }}
             >
             Limpiar filtros
             </Button>
