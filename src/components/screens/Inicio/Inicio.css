@@ -41,6 +41,7 @@
   width: 100%; /* Ajusta el ancho según sea necesario */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  white-space: nowrap;
 }
 
 .tarjeta:hover {
