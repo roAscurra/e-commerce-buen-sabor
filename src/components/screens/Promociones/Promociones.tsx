@@ -17,6 +17,9 @@ const Promociones = () => {
   const [selectedPromotionType, setSelectedPromotionType] = useState<string>("");
   const [filteredPromocionesType, setFilteredPromocionesType] = useState<Promocion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [orderByPrecio, setOrderByPrecio] = useState(false);
+  const [originalPromociones, setOriginalPromociones] = useState<Promocion[]>([]);
+
   const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -29,7 +32,8 @@ const Promociones = () => {
         fechaHasta: new Date(promocion.fechaHasta),
       }));
       setPromociones(formattedData);
-      console.log(promociones);
+      console.log(promociones)
+      setOriginalPromociones(formattedData); // Almacena una copia original sin cambios
       setAllPromociones(formattedData);
       setIsLoading(false);
     };
@@ -53,6 +57,7 @@ const Promociones = () => {
   };
 
   const handleSortByPrice = async () => {
+    setOrderByPrecio(true);
     await fetchProductSort();
   };
 
@@ -103,6 +108,7 @@ const Promociones = () => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Resetear a la primera página al buscar
+    setOrderByPrecio(false);
   };
   if(isLoading && currentPromociones.length === 0){
     return (
@@ -123,6 +129,9 @@ const Promociones = () => {
   const handleClearFilters = () => {
     setSelectedPromotionType("");
     setSearchTerm("");
+    setOrderByPrecio(false);
+    setAllPromociones(originalPromociones)
+    setPromociones(originalPromociones)
   };
   
   return (
@@ -133,6 +142,7 @@ const Promociones = () => {
       selectedOption={selectedPromotionType}
       handleOptionFilter={handlePromotionTypeFilter}
       searchTerm={searchTerm}
+      orderByPrecio={orderByPrecio}
       handleSearchChange={handleSearchChange}
       handleSortByPrice={handleSortByPrice}
       handleClearFilters={handleClearFilters}

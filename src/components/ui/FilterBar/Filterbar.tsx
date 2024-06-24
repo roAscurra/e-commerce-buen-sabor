@@ -6,6 +6,7 @@ import { faArrowUpShortWide } from "@fortawesome/free-solid-svg-icons";
 interface FilterBarProps {
   selectedOption: any;
   handleOptionFilter: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  orderByPrecio: boolean;
   searchTerm: string;
   handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSortByPrice: () => void;
@@ -16,6 +17,7 @@ interface FilterBarProps {
 const FilterBar: React.FC<FilterBarProps> = ({
   selectedOption,
   handleOptionFilter,
+  orderByPrecio,
   searchTerm,
   handleSearchChange,
   handleSortByPrice,
@@ -51,7 +53,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         </select>
         </div>
     </div>
-    {(selectedOption || searchTerm) && (
+    {(selectedOption || searchTerm || orderByPrecio) && (
         <>
         <div className="col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-sm-0">
             <div className="d-flex h-100 align-items-center">
@@ -76,7 +78,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         </div>
         </>
     )}
-    {!selectedOption && !searchTerm && (
+    {!selectedOption && !searchTerm && !orderByPrecio &&(
         <div className="col-lg-6 col-md-6 col-sm-12 col-12 mb-3 mb-sm-0">
         <div className="d-flex h-100 align-items-center">
             <input
