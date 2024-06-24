@@ -34,7 +34,6 @@ const Producto = () => {
 
     // Si hay una categoría seleccionada, obtener productos por esa categoría
     if (categoriaSeleccionada !== null) {
-      setLoading(true);
       const page = 0;
       const size = 10;
       const result = await articuloService.getArticulosByCategoria(url + 'ecommerce', parseInt(categoriaSeleccionada), page, size);
@@ -59,8 +58,8 @@ const Producto = () => {
     setLoading(false);
   };
   useEffect(() => {
-    fetchData();
     setLoading(true);
+    fetchData();
   }, []);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
