@@ -30,15 +30,15 @@ const FilterBar: React.FC<FilterBarProps> = ({
   };
 
   return (
-    <div className="row filterbar align-items-stretch justify-content-center mb-3 g-0">
-    <div className="col-lg-1 col-md-3 col-sm-2 col-2 mb-3 mb-sm-0">
+    <div className="row filterbar align-items-stretch justify-content-center mb-3 g-0 ps-5 pe-5">
+    <div className="col-12 col-lg-1 col-md-3 col-sm-2 col-2 mb-3 mb-sm-0">
         <div className="d-flex h-100 align-items-center justify-content-center">
         <Button className="ordenar-btn" onClick={handleSortByPrice}>
             <FontAwesomeIcon icon={faArrowUpShortWide} />
         </Button>
         </div>
     </div>
-    <div className="col-lg-3 col-md-5 col-sm-10 col-10 mb-3 mb-sm-0">
+    <div className="col-12 col-lg-3 col-md-5 col-sm-10 col-10 mb-3 mb-sm-0">
         <div className="d-flex h-100 align-items-center">
         <select
             value={selectedOption || ''}

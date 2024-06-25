@@ -180,7 +180,7 @@ const Producto = () => {
             Sin resultados
           </div>
         )}
-        <div className="row scroll">
+        <div className="row scroll ps-5 pe-5">
           {currentProductos.map((producto, index) => (
             <div className="col-12 col-sm-12 col-md-4 col-lg-3" key={index}>
               <div className="producto-card">
