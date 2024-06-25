@@ -12,7 +12,7 @@
 }
 
 .img-container {
-  height: 300px; /* Establece la altura de la imagen */
+  height: 200px; /* Establece la altura de la imagen */
   overflow: hidden;
   display: flex; /* Usa flexbox */
   justify-content: center; /* Centra horizontalmente */

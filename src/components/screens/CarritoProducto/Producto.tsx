@@ -182,7 +182,7 @@ const Producto = () => {
         )}
         <div className="row scroll">
           {currentProductos.map((producto, index) => (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
+            <div className="col-12 col-sm-12 col-md-4 col-lg-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
                   id={producto.id}
@@ -195,7 +195,7 @@ const Producto = () => {
           ))}
         </div>
         <nav>
-          <ul className="pagination justify-content-center m-3">
+          <ul className="pagination justify-content-center mt-3">
             {[...Array(Math.ceil(filteredProductos.length / productosPerPage))].map((_, index) => (
               <li
                 key={index}

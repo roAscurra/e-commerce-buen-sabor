@@ -9,24 +9,29 @@
     }
 }
 .filterbar {
-    position: absolute;
+    position: fixed;
     top: 60px;
     width: calc(100% - 16px); 
     padding-right: 8px;
-    z-index: -1;
+    z-index: 2;
 }
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
+}
+@media screen and (max-width: 600px) {
+    .scroll {
+        overflow-y: auto; /* Permite el scroll vertical */
+        height: calc(100vh - 260px); /* Ajusta este valor según la altura combinada de la navbar y filterbar */
+        position: relative; /* Asegura que el desplazamiento es relativo al contenedor */
+        z-index: 1; /* Asegura que el contenido está por debajo de la barra de filtro */
+    }
 }
 
 .d-flex {
     display: flex;
-}
-.scroll{
-    overflow-y: auto; /* Esto permite el desplazamiento vertical solo cuando sea necesario */
 }
 .align-items-center {
     align-items: center;

@@ -39,7 +39,7 @@ const ItemProducto = (args: ProductoParams) => {
                     <img
                     src={imagen.url}
                     alt={`Slide ${index}`}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ width: '100%', height: '80%', objectFit: 'cover' }}
                     />
                   </div>
                 </Carousel.Item>
@@ -67,7 +67,7 @@ const ItemProducto = (args: ProductoParams) => {
             </div>
           )}
           {!args.productoObject.tiempoEstimadoMinutos && (
-            <div className="search-ingredientes-container m-3" style={{ visibility: "hidden" }}>
+            <div className="search-ingredientes-container" style={{ visibility: "hidden" }}>
               <button
                 className='btn btn-principal'
                 disabled
