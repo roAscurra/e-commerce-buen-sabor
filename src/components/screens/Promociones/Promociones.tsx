@@ -154,12 +154,12 @@ const Promociones = () => {
       ]}
     />
     {currentPromocionesFiltered.length === 0 && searchTerm && (
-      <div className="alert alert-warning" role="alert">
+      <div className="alert alert-warning ms-5 me-5" role="alert">
         Sin resultados para "{searchTerm}"
       </div>
     )}
     {filteredPromocionesType.length === 0 && selectedPromotionType && (
-      <div className="alert alert-warning" role="alert">
+      <div className="alert alert-warning ms-5 me-5" role="alert">
         Sin resultados para el tipo de promoción seleccionado
       </div>
     )}
