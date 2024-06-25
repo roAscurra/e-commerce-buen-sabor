@@ -171,12 +171,12 @@ const Producto = () => {
             ]}
           />
         {noProductsMessage && (
-          <div className="alert alert-warning" role="alert">
+          <div className="alert alert-warning ms-5 me-5" role="alert">
             {noProductsMessage}
           </div>
         )}
         {filteredProductos.length === 0 && searchTerm && (
-          <div className="alert alert-warning" role="alert">
+          <div className="alert alert-warning ms-5 me-5" role="alert">
             Sin resultados
           </div>
         )}
