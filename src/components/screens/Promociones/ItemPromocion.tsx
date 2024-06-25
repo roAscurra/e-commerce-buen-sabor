@@ -7,16 +7,10 @@ import './ItemPromocion.css'; // Archivo CSS para estilos personalizados
 import { Carousel } from 'react-bootstrap';
 
 interface ItemPromocionProps {
-  denominacion: string;
-  precioPromocional: number;
-  imagenes: any[];
   promocionObject: Promocion;
 }
 
 const ItemPromocion: React.FC<ItemPromocionProps> = ({
-  denominacion,
-  precioPromocional,
-  imagenes,
   promocionObject
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -31,11 +25,11 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
 
   return (
     <div className="productos-container">
-      <div className="card tarjeta">
+      <div className="card tarjeta text-center">
         <div className="img-container">
-          {imagenes.length > 0 && (
+          {promocionObject.imagenes.length > 0 && (
             <Carousel>
-              {imagenes.map((imagen, index) => (
+              {promocionObject.imagenes.map((imagen, index) => (
                 <Carousel.Item key={index}>
                   <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
                     <img
@@ -50,8 +44,10 @@ const ItemPromocion: React.FC<ItemPromocionProps> = ({
           )}
         </div>
         <div className="card-body altura-cuerpo">
-          <h5 className="card-title text-truncate" title={denominacion}>{denominacion}</h5>
-          <p className="card-text h4">$ {precioPromocional}</p>
+          <h5 className="card-title" title={promocionObject.denominacion}>{promocionObject.denominacion}</h5>
+          <div className="precio-container mb-2">
+            <p className="card-text h4">${promocionObject.precioPromocional}</p>
+          </div>          
           <button className="btn btn-principal" onClick={handleViewDetail}>
             <FontAwesomeIcon icon={faEye} /> Ver detalle
           </button>

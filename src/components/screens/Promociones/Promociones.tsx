@@ -168,10 +168,7 @@ const Promociones = () => {
         <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
           <div className="promocion-card">
             <ItemPromocion
-              denominacion={promocion.denominacion}
-              precioPromocional={promocion.precioPromocional}
               promocionObject={promocion}
-              imagenes={promocion.imagenes}
             />
           </div>
         </div>

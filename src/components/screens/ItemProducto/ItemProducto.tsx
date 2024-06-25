@@ -8,18 +8,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 type ProductoParams = {
-  id: number;
-  denominacion: string;
-  precioVenta: number;
   productoObject: ArticuloDto;
 }
-const ItemProducto = (args: ProductoParams) => {
+
+const ItemProducto = ({ productoObject }: ProductoParams) => {
   const [showModal, setShowModal] = useState(false);
   const [ingredientes, setIngredientes] = useState<ArticuloManufacturadoDetalle[]>([]);
 
   const handleVerIngredientes = () => {
-    if (args.productoObject.articuloManufacturadoDetalles) {
-      setIngredientes(args.productoObject.articuloManufacturadoDetalles);
+    if (productoObject.articuloManufacturadoDetalles) {
+      setIngredientes(productoObject.articuloManufacturadoDetalles);
       setShowModal(true);
     }
   };
@@ -27,19 +25,21 @@ const ItemProducto = (args: ProductoParams) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+
   return (
     <div className="productos-container">
-      <div className="card tarjeta">
+      <div className="card tarjeta text-center">
         <div className="img-container">
-          {args.productoObject.imagenes && args.productoObject.imagenes.length > 0 ? (
+          {productoObject.imagenes && productoObject.imagenes.length > 0 ? (
             <Carousel>
-              {args.productoObject.imagenes.map((imagen, index) => (
+              {productoObject.imagenes.map((imagen, index) => (
                 <Carousel.Item key={index}>
                   <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
                     <img
-                    src={imagen.url}
-                    alt={`Slide ${index}`}
-                    style={{ width: '100%', height: '80%', objectFit: 'cover' }}
+                      src={imagen.url}
+                      alt={`Slide ${index}`}
+                      style={{ width: '100%', height: '80%', objectFit: 'cover' }}
                     />
                   </div>
                 </Carousel.Item>
@@ -51,13 +51,15 @@ const ItemProducto = (args: ProductoParams) => {
         </div>
 
         <div className="card-body altura-cuerpo">
-        <h5 className="card-title text-truncate" title={args.denominacion}>{args.denominacion}</h5>
-        <div className="precio-container">
-            <p className="card-text h4">$ {args.precioVenta}</p>
+          <h5 className="card-title" title={productoObject.denominacion}>
+            {productoObject.denominacion}
+          </h5>
+          <div className="precio-container mb-2">
+            <p className="card-text h4">${productoObject.precioVenta}</p>
           </div>
 
-          {args.productoObject.tiempoEstimadoMinutos && (
-            <div className="search-ingredientes-container m-3">
+          {productoObject.tiempoEstimadoMinutos ? (
+            <div className="search-ingredientes-container">
               <button
                 onClick={handleVerIngredientes}
                 className='btn btn-principal'
@@ -65,8 +67,7 @@ const ItemProducto = (args: ProductoParams) => {
                 <FontAwesomeIcon icon={faEye} /> Ver detalle
               </button>
             </div>
-          )}
-          {!args.productoObject.tiempoEstimadoMinutos && (
+          ) : (
             <div className="search-ingredientes-container" style={{ visibility: "hidden" }}>
               <button
                 className='btn btn-principal'
@@ -76,11 +77,11 @@ const ItemProducto = (args: ProductoParams) => {
               </button>
             </div>
           )}
-            <IngredientesModal
+          <IngredientesModal
             open={showModal}
             onClose={handleCloseModal}
             ingredientes={ingredientes}
-            product={args.productoObject}
+            product={productoObject}
           />
         </div>
       </div>

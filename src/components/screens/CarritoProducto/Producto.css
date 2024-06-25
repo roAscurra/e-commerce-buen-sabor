@@ -23,10 +23,10 @@
 }
 @media screen and (max-width: 600px) {
     .scroll {
-        overflow-y: auto; /* Permite el scroll vertical */
-        height: calc(100vh - 260px); /* Ajusta este valor según la altura combinada de la navbar y filterbar */
-        position: relative; /* Asegura que el desplazamiento es relativo al contenedor */
-        z-index: 1; /* Asegura que el contenido está por debajo de la barra de filtro */
+        overflow-y: auto; 
+        height: calc(100vh - 260px); 
+        position: relative; 
+        z-index: 1; 
     }
 }
 

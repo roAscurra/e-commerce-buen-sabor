@@ -185,9 +185,6 @@ const Producto = () => {
             <div className="col-12 col-sm-12 col-md-4 col-lg-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
-                  id={producto.id}
-                  denominacion={producto.denominacion}
-                  precioVenta={producto.precioVenta}
                   productoObject={producto}
                 />
               </div>

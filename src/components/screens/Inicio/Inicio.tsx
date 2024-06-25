@@ -3,7 +3,7 @@ import './Inicio.css'; // Archivo CSS para estilos personalizados
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faTags } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap'; // Importa los componentes necesarios de React Bootstrap
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'; // Importa los componentes necesarios de React Bootstrap
 import Categoria from '../../../types/Categoria';
 import CategoriaService from '../../../services/CategoriaService';
 
@@ -33,17 +33,27 @@ export const Inicio = () => {
     localStorage.setItem('categoriaSeleccionada', categoriaId.toString());
     window.location.href = '/productos';
   };
+  if(cargando){
+    return (
+      <>
+        <div style={{ height: 'calc(100vh - 56px)' }} className={'d-flex flex-column justify-content-center align-items-center w-100'}>
+          <div className="spinner-border" role="status"></div>
+          <div>Cargando...</div>
+        </div>
+      </>
+    )
 
+  }
   return (
     <Container fluid className="inicio-container">
       <Container className="contenido">
         <div className="texto">
-          <h1 className='texto-principal'>El Buen Sabor</h1>
+          <h1 className='text-center'>El Buen Sabor</h1>
         </div>
         <Row className="tarjetas-container m-3">
           <Col xs={12} md={6} className="mb-4">
             <Card className="tarjeta">
-              <Card.Body>
+              <Card.Body className='text-center'>
                 <div className="icono">
                   <FontAwesomeIcon icon={faUtensils} size="3x" />
                 </div>
@@ -57,8 +67,8 @@ export const Inicio = () => {
           </Col>
           <Col xs={12} md={6} className="mb-4">
             <Card className="tarjeta">
-              <Card.Body>
-                <div className="icono">
+              <Card.Body className='text-center'>
+                <div className="icono text-center">
                   <FontAwesomeIcon icon={faTags} size="3x" />
                 </div>
                 <Card.Title>Promociones</Card.Title>
@@ -74,23 +84,16 @@ export const Inicio = () => {
           <div className="texto">
             <h3 className='text-center'>Categorías</h3>
           </div>
-          {cargando ? (
-            <div className="d-flex justify-content-center align-items-center w-100">
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Cargando...</span>
-              </Spinner>
-            </div>
-          ) : (
-            categorias.map((categoria) => (
-              <Col key={categoria.id} xs={6} md={4} lg={3} className="mb-4">
-                <Card className="tarjeta categoria-card h-100 text-center" onClick={() => handleClickCategoria(categoria.id)}>
-                  <Card.Body className="d-flex flex-column justify-content-center">
-                    <Card.Title className="card-title h6">{categoria.denominacion}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
+          {categorias.map((categoria) => (
+            <Col key={categoria.id} xs={6} md={4} lg={3} className="mb-4">
+              <div className="card tarjeta categoria-card h-100 text-center" onClick={() => handleClickCategoria(categoria.id)}>
+                <div className="card-body d-flex flex-column justify-content-center align-items-center">
+                  <p><b>{categoria.denominacion}</b></p>
+                </div>
+              </div>
+            </Col>
             ))
-          )}
+          }
         </Row>
       </Container>
       <hr />
