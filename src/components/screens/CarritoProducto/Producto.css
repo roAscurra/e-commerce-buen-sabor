@@ -1,5 +1,5 @@
 .producto-container {
-    margin-top: 120px; /* Ajusta según la altura combinada de la NavBar y FilterBar */
+    margin-top: 120px;
     background-color: #f2f2f2;
 }
 /* Media query para pantallas pequeñas (móviles) */
@@ -8,19 +8,20 @@
         margin-top: 200px; /* Ajusta el nuevo margin-top para pantallas pequeñas */
     }
 }
+.filterbar {
+    position: absolute;
+    top: 60px;
+    width: calc(100% - 16px); 
+    padding-right: 8px;
+    z-index: -1;
+}
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 2;
 }
-.filterbar {
-    position: fixed;
-    top: 60px;
-    width: calc(100% - 16px); 
-    padding-right: 8px;
-    z-index: 1000; 
-}
+
 .d-flex {
     display: flex;
 }
