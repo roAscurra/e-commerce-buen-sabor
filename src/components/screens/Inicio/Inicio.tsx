@@ -34,15 +34,15 @@ export const Inicio = () => {
     window.location.href = '/productos';
   };
   return (
-    <Container fluid className="inicio-container">
-      <Container className="contenido">
-        {cargando && categorias.length === 0 ? (
-          <div style={{ height: 'calc(100vh - 56px)' }} className={'d-flex flex-column justify-content-center align-items-center w-100'}>
-            <div className="spinner-border" role="status"></div>
-            <div>Cargando...</div>
-          </div>
-        ) : (
-          <>
+    <>
+      {cargando && categorias.length === 0 ? (
+        <div style={{ height: 'calc(100vh - 56px)' }} className={'d-flex flex-column justify-content-center align-items-center w-100'}>
+          <div className="spinner-border" role="status"></div>
+          <div>Cargando...</div>
+        </div>
+      ) : (
+        <Container fluid className="inicio-container">
+          <Container className="contenido">
             <div className="texto">
               <h1 className='text-center'>El Buen Sabor</h1>
             </div>
@@ -90,12 +90,13 @@ export const Inicio = () => {
                 </Col>
               ))}
             </Row>
-          </>
-        )}
-      </Container>
-      <hr />
-    </Container>
+          </Container>
+          <hr />
+        </Container>
+      )}
+    </>
   );
+  
   
 };
 
