@@ -1,0 +1,15 @@
+
+.ordenar-btn {
+    height: 100%;
+    width: 100%;
+    background-color: #26486e !important;
+    border-color: #26486e !important;
+    color: white !important;
+}
+
+.ordenar-btn:hover {
+    background-color:  #5192d8 !important; 
+    border-color: #132f4f !important;
+    color: white !important;
+}
+

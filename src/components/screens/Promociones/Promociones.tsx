@@ -163,15 +163,12 @@ const Promociones = () => {
         Sin resultados para el tipo de promoción seleccionado
       </div>
     )}
-    <div className="row">
+    <div className="row scroll">
       {currentPromociones.map((promocion, index) => (
-        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
           <div className="promocion-card">
             <ItemPromocion
-              denominacion={promocion.denominacion}
-              precioPromocional={promocion.precioPromocional}
               promocionObject={promocion}
-              imagenes={promocion.imagenes}
             />
           </div>
         </div>
@@ -179,7 +176,7 @@ const Promociones = () => {
     </div>
   </div>
   <nav>
-    <ul className="pagination justify-content-center m-3">
+    <ul className="pagination justify-content-center mt-3">
       {[...Array(Math.ceil(currentPromocionesFiltered.length / promocionesPerPage))].map(
         (_, index) => (
           <li

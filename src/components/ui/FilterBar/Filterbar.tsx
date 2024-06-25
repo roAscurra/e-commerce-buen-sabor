@@ -31,14 +31,14 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <div className="row filterbar align-items-stretch justify-content-center mb-3 g-0">
-    <div className="col-lg-2 col-md-3 col-sm-2 col-2 mb-3 mb-sm-0">
+    <div className="col-lg-1 col-md-3 col-sm-2 col-2 mb-3 mb-sm-0">
         <div className="d-flex h-100 align-items-center justify-content-center">
         <Button className="ordenar-btn" onClick={handleSortByPrice}>
             <FontAwesomeIcon icon={faArrowUpShortWide} />
         </Button>
         </div>
     </div>
-    <div className="col-lg-4 col-md-5 col-sm-10 col-10 mb-3 mb-sm-0">
+    <div className="col-lg-3 col-md-5 col-sm-10 col-10 mb-3 mb-sm-0">
         <div className="d-flex h-100 align-items-center">
         <select
             value={selectedOption || ''}
@@ -56,7 +56,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
     </div>
     {(selectedOption || searchTerm || orderByPrecio) && (
         <>
-        <div className="col-lg-4 col-md-4 col-sm-12 col-12 mb-sm-0">
+        <div className="col-lg-6 col-md-4 col-sm-12 col-12 mb-sm-0">
             <div className="d-flex h-100 align-items-center">
             <input
                 type="text"
@@ -80,7 +80,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         </>
     )}
     {!selectedOption && !searchTerm && !orderByPrecio &&(
-        <div className="col-lg-6 col-md-6 col-sm-12 col-12 mb-sm-0">
+        <div className="col-lg-8 col-md-6 col-sm-12 col-12 mb-sm-0">
         <div className="d-flex h-100 align-items-center">
             <input
             type="text"

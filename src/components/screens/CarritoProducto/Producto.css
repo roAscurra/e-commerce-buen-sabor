@@ -1,11 +1,38 @@
 .producto-container {
-    padding: 20px;
+    margin-top: 120px;
     background-color: #f2f2f2;
 }
+/* Media query para pantallas pequeñas (móviles) */
+@media screen and (max-width: 600px) {
+    .producto-container {
+        margin-top: 200px; /* Ajusta el nuevo margin-top para pantallas pequeñas */
+    }
+}
+.filterbar {
+    position: fixed;
+    top: 60px;
+    width: calc(100% - 16px); 
+    padding-right: 8px;
+    z-index: 2;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+@media screen and (max-width: 600px) {
+    .scroll {
+        overflow-y: auto; 
+        height: calc(100vh - 260px); 
+        position: relative; 
+        z-index: 1; 
+    }
+}
+
 .d-flex {
     display: flex;
 }
-
 .align-items-center {
     align-items: center;
 }
@@ -14,66 +41,17 @@
     justify-content: center;
 }
 
-/* Contenedor para los filtros */
-.filtros-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Envolver en pantallas pequeñas */
-    margin-bottom: 20px; /* Espaciado inferior */
-}
-
-/* Estilos específicos para cada filtro */
-.filtro-categoria {
-    flex: 1; /* Ocupa todo el espacio disponible */
-    max-width: 360px; /* Ancho máximo para evitar que se expanda demasiado */
-    margin-right: 10px; /* Espaciado derecho entre los filtros */
-}
-
-
-.ordenar-btn {
-    height: 45px; /* Altura del botón */
-    min-width: 180px; /* Ancho mínimo del botón */
-    max-width: 300px; /* Ancho máximo del botón */
-    background-color: #26486e !important;
-    border-color: #26486e !important;
-    color: white !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 15px; /* Ajustar el padding para más espacio en el botón */
-}
-
-.ordenar-btn:hover {
-    background-color: #5192d8 !important;
-    border-color: #132f4f !important;
-    color: white !important;
-}
-
-@media (max-width: 600px) {
-    .filtros-container {
-        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
-    }
-
-    .search-input,
-    .filtro-categoria,
-    .ordenar-btn {
-        width: 100%; /* Ajustar el ancho al 100% en pantallas pequeñas */
-        max-width: none; /* Reiniciar el ancho máximo en pantallas pequeñas */
-        margin-bottom: 10px; /* Espaciado inferior */
-    }
-}
 /* Estilo para elementos activos */
 .principal-active .page-link {
     background-color: #26486e; /* Color de fondo para elementos activos */
     color: #ffffff; /* Color de texto para elementos activos */
-  }
-  
-  /* Estilo para elementos inactivos */
-  .principal-inactive .page-link {
+}
+
+/* Estilo para elementos inactivos */
+.principal-inactive .page-link {
     background-color: #ffffff; /* Color de fondo para elementos inactivos */
     color: #26486e; /* Color de texto para elementos inactivos */
-  }
+}
   
   
   
