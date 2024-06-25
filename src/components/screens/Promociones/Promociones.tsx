@@ -163,7 +163,7 @@ const Promociones = () => {
         Sin resultados para el tipo de promoción seleccionado
       </div>
     )}
-    <div className="row scroll">
+    <div className="row scroll ps-5 pe-5">
       {currentPromociones.map((promocion, index) => (
         <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
           <div className="promocion-card">
