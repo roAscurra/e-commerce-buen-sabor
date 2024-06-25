@@ -158,18 +158,18 @@ const Producto = () => {
       <BaseNavBar />
       <div className="container-fluid producto-container">
         <FilterBar
-          selectedOption={selectedCategory}
-          handleOptionFilter={handleCategoryFilter}
-          searchTerm={searchTerm}
-          orderByPrecio={orderByPrecio}
-          handleSearchChange={handleSearchChange}
-          handleSortByPrice={handleSortByPrice}
-          handleClearFilters={handleClearFilters}
-          options={[
-            { value: '', label: 'Todas las categorías' },
-            ...categorias.map((categoria) => ({ value: categoria.id.toString(), label: categoria.denominacion }))
-          ]}
-        />
+            selectedOption={selectedCategory}
+            handleOptionFilter={handleCategoryFilter}
+            searchTerm={searchTerm}
+            orderByPrecio={orderByPrecio}
+            handleSearchChange={handleSearchChange}
+            handleSortByPrice={handleSortByPrice}
+            handleClearFilters={handleClearFilters}
+            options={[
+              { value: '', label: 'Todas las categorías' },
+              ...categorias.map((categoria) => ({ value: categoria.id.toString(), label: categoria.denominacion }))
+            ]}
+          />
         {noProductsMessage && (
           <div className="alert alert-warning" role="alert">
             {noProductsMessage}
@@ -180,9 +180,9 @@ const Producto = () => {
             Sin resultados
           </div>
         )}
-        <div className="row">
+        <div className="row scroll">
           {currentProductos.map((producto, index) => (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" key={index}>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
               <div className="producto-card">
                 <ItemProducto
                   id={producto.id}

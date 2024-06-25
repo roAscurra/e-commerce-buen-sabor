@@ -1,74 +1,32 @@
 .promocion-container {
-    padding: 20px;
+    margin-top: 80px;
+    /* Ajusta según la altura combinada de la NavBar y FilterBar */
     background-color: #f2f2f2;
-}
-
-.filter-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.mt-3 {
-    margin-top: 2rem;
-}
-
-.mb-3 {
-    margin-bottom: 2rem;
-}
-
-.ordenar-btn {
-    height: 45px;
-    background-color: #26486e !important;
-    border-color: #26486e !important;
-    color: white !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 50px; /* Ajuste del tamaño */
-    max-width: 250px; /* Ajuste del tamaño */
-    flex-grow: 1;
-}
-
-.ordenar-btn:hover {
-    background-color:  #5192d8 !important; 
-    border-color: #132f4f !important;
-    color: white !important;
-}
-
-
-.filter-select {
-    min-width: 120px; /* Ajuste del tamaño */
-    max-width: 350px; /* Ajuste del tamaño */
-    flex-grow: 1;
-}
-
-@media (max-width: 768px) {
-    .filter-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .search-input, .filter-select, .ordenar-btn {
-        flex: 1;
-        min-width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .ordenar-btn {
-        margin-left: 0;
-    }
 }
 /* Estilo para elementos activos */
 .principal-active .page-link {
-    background-color: #26486e; /* Color de fondo para elementos activos */
-    color: #ffffff; /* Color de texto para elementos activos */
-  }
-  
-  /* Estilo para elementos inactivos */
-  .principal-inactive .page-link {
-    background-color: #ffffff; /* Color de fondo para elementos inactivos */
-    color: #26486e; /* Color de texto para elementos inactivos */
-  }
+    background-color: #26486e;
+    /* Color de fondo para elementos activos */
+    color: #ffffff;
+    /* Color de texto para elementos activos */
+}
+
+/* Estilo para elementos inactivos */
+.principal-inactive .page-link {
+    background-color: #ffffff;
+    /* Color de fondo para elementos inactivos */
+    color: #26486e;
+    /* Color de texto para elementos inactivos */
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ajusta el valor según sea necesario */
+}
+.filter-bar {
+    position: fixed;
+    top: 50px; /* Ajusta la posición según la altura de tu barra de navegación */
+    width: 100%;
+    z-index: 999; /* Ajusta el valor según sea necesario */
+}
